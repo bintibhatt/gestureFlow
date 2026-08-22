@@ -1,0 +1,371 @@
+{
+  "format": "layers-model",
+  "generatedBy": "keras",
+  "convertedBy": "GestureFlow H5 Converter",
+  "modelTopology": {
+    "class_name": "Sequential",
+    "config": {
+      "name": "sequential_1",
+      "layers": [
+        {
+          "class_name": "InputLayer",
+          "config": {
+            "batch_input_shape": [
+              null,
+              30,
+              126
+            ],
+            "dtype": "float32",
+            "sparse": false,
+            "ragged": false,
+            "name": "lstm_3_input"
+          }
+        },
+        {
+          "class_name": "LSTM",
+          "config": {
+            "name": "lstm_3",
+            "trainable": true,
+            "dtype": "float32",
+            "batch_input_shape": [
+              null,
+              30,
+              126
+            ],
+            "return_sequences": true,
+            "return_state": false,
+            "go_backwards": false,
+            "stateful": false,
+            "unroll": false,
+            "time_major": false,
+            "units": 64,
+            "activation": "relu",
+            "recurrent_activation": "sigmoid",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "recurrent_initializer": {
+              "class_name": "Orthogonal",
+              "config": {
+                "gain": 1.0,
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "unit_forget_bias": true,
+            "kernel_regularizer": null,
+            "recurrent_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "recurrent_constraint": null,
+            "bias_constraint": null,
+            "dropout": 0.0,
+            "recurrent_dropout": 0.0,
+            "implementation": 2
+          }
+        },
+        {
+          "class_name": "LSTM",
+          "config": {
+            "name": "lstm_4",
+            "trainable": true,
+            "dtype": "float32",
+            "return_sequences": true,
+            "return_state": false,
+            "go_backwards": false,
+            "stateful": false,
+            "unroll": false,
+            "time_major": false,
+            "units": 128,
+            "activation": "relu",
+            "recurrent_activation": "sigmoid",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "recurrent_initializer": {
+              "class_name": "Orthogonal",
+              "config": {
+                "gain": 1.0,
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "unit_forget_bias": true,
+            "kernel_regularizer": null,
+            "recurrent_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "recurrent_constraint": null,
+            "bias_constraint": null,
+            "dropout": 0.0,
+            "recurrent_dropout": 0.0,
+            "implementation": 2
+          }
+        },
+        {
+          "class_name": "LSTM",
+          "config": {
+            "name": "lstm_5",
+            "trainable": true,
+            "dtype": "float32",
+            "return_sequences": false,
+            "return_state": false,
+            "go_backwards": false,
+            "stateful": false,
+            "unroll": false,
+            "time_major": false,
+            "units": 64,
+            "activation": "relu",
+            "recurrent_activation": "sigmoid",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "recurrent_initializer": {
+              "class_name": "Orthogonal",
+              "config": {
+                "gain": 1.0,
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "unit_forget_bias": true,
+            "kernel_regularizer": null,
+            "recurrent_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "recurrent_constraint": null,
+            "bias_constraint": null,
+            "dropout": 0.0,
+            "recurrent_dropout": 0.0,
+            "implementation": 2
+          }
+        },
+        {
+          "class_name": "Dense",
+          "config": {
+            "name": "dense_3",
+            "trainable": true,
+            "dtype": "float32",
+            "units": 64,
+            "activation": "relu",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "kernel_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "bias_constraint": null
+          }
+        },
+        {
+          "class_name": "Dense",
+          "config": {
+            "name": "dense_4",
+            "trainable": true,
+            "dtype": "float32",
+            "units": 32,
+            "activation": "relu",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "kernel_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "bias_constraint": null
+          }
+        },
+        {
+          "class_name": "Dense",
+          "config": {
+            "name": "dense_5",
+            "trainable": true,
+            "dtype": "float32",
+            "units": 5,
+            "activation": "softmax",
+            "use_bias": true,
+            "kernel_initializer": {
+              "class_name": "GlorotUniform",
+              "config": {
+                "seed": null
+              }
+            },
+            "bias_initializer": {
+              "class_name": "Zeros",
+              "config": {}
+            },
+            "kernel_regularizer": null,
+            "bias_regularizer": null,
+            "activity_regularizer": null,
+            "kernel_constraint": null,
+            "bias_constraint": null
+          }
+        }
+      ]
+    }
+  },
+  "weightsManifest": [
+    {
+      "paths": [
+        "group1-shard1of1.bin"
+      ],
+      "weights": [
+        {
+          "name": "dense_3/dense_3/bias:0",
+          "shape": [
+            64
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "dense_3/dense_3/kernel:0",
+          "shape": [
+            64,
+            64
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "dense_4/dense_4/bias:0",
+          "shape": [
+            32
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "dense_4/dense_4/kernel:0",
+          "shape": [
+            64,
+            32
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "dense_5/dense_5/bias:0",
+          "shape": [
+            5
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "dense_5/dense_5/kernel:0",
+          "shape": [
+            32,
+            5
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_3/lstm_3/lstm_cell_15/bias:0",
+          "shape": [
+            256
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_3/lstm_3/lstm_cell_15/kernel:0",
+          "shape": [
+            126,
+            256
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_3/lstm_3/lstm_cell_15/recurrent_kernel:0",
+          "shape": [
+            64,
+            256
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_4/lstm_4/lstm_cell_16/bias:0",
+          "shape": [
+            512
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_4/lstm_4/lstm_cell_16/kernel:0",
+          "shape": [
+            64,
+            512
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_4/lstm_4/lstm_cell_16/recurrent_kernel:0",
+          "shape": [
+            128,
+            512
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_5/lstm_5/lstm_cell_17/bias:0",
+          "shape": [
+            256
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_5/lstm_5/lstm_cell_17/kernel:0",
+          "shape": [
+            128,
+            256
+          ],
+          "dtype": "float32"
+        },
+        {
+          "name": "lstm_5/lstm_5/lstm_cell_17/recurrent_kernel:0",
+          "shape": [
+            64,
+            256
+          ],
+          "dtype": "float32"
+        }
+      ]
+    }
+  ]
+}
