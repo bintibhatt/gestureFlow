@@ -1,43 +1,79 @@
-# Gesture based task automation
+# GestureFlow
 
-This project uses the MediaPipe and OpenCV libraries in Python to recognize hand gestures in real-time from a webcam feed. The gestures recognized include thumbs up, palm, thumbs down, peace, and fist.
+GestureFlow is a browser-based, gesture-controlled photo workspace that uses computer vision to let users capture, browse, and edit photos using hand gestures.
 
-## Requirements
+## Features
 
-- Python 3.6+
-- MediaPipe
-- OpenCV
-- NumPy
-- Matplotlib
-- Tensorflow
-- Keras
-- OS
-- Sklearn
+* Real-time hand gesture recognition
+* Gesture-controlled navigation
+* Camera-based photo capture
+* Photo browsing and history
+* Photo deletion
+* Image editing
+* Context-aware gesture actions
+* Local browser-based processing
+* No camera or photo uploads required
 
+## Gesture Interaction
 
-## Installation
+Gestures change meaning based on the current application state.
 
-1. Clone this repository: `git clone https://github.com/bintibhatt/gesture-based-task-automation.git`
-2. Install the required packages: `pip install requirements`.
-3. Run the `gesture_recognition.ipynb`.
+```text id="1v7j9p"
+HOME
+👍  Take Photo
+✋  Show Latest Photo
+👎  Delete Latest Photo
+👌  Open Menu
 
-## Usage
+MENU
+☝  Move Up
+👇  Move Down
+👌  Select
+✋  Back
 
-Once the script is running, hold your hand up to the webcam and make one of the gestures listed above. The script will recognize the gesture and take a corresponding action:
+BROWSE
+☝  Next Photo
+👇  Previous Photo
+✋  Back
 
-- Thumbs up: take a photo and save it to the "images-clicked" directory
-- Palm: display the last photo taken in a window
-- Thumbs down: delete the last photo taken
-- Peace: increase the brightness of the last photo taken by 50 units
-- Fist: convert the last photo taken to grayscale
+EDIT
+☝  Navigate
+👇  Navigate
+👌  Select
+✋  Back
+```
 
-## Applications
+## Architecture
 
-The project can be used in various applications, including:
+```text id="y4y7tq"
+Webcam
+  ↓
+MediaPipe
+  ↓
+Hand Landmarks
+  ↓
+Gesture Classifier
+  ↓
+State Machine
+  ↓
+Action Engine
+  ↓
+Photo Workspace
+```
 
-#### Gesture-based human-computer interaction: 
-- This project can be useful for educational institutions such as schools, colleges, and universities that often use projectors to teach their students. By integrating this project with a projector, teachers can easily capture and save the notes they write on a whiteboard or blackboard during their lectures. This will not only make it easier for students to keep track of the notes but also help in reducing paper waste. Additionally, this project can be useful in corporate boardrooms, where presentations are made and important ideas and discussions are exchanged.
-- Overall, the project has many potential uses in various industries and fields, and its applications are only limited by the creativity and imagination of its users.
+## Tech Stack
 
-### Youtube Video link
-https://youtu.be/YDgI4H-ePiM
+* Next.js
+* React
+* TypeScript
+* MediaPipe
+* TensorFlow.js
+* Canvas API
+* IndexedDB
+* Vercel
+
+## Goal
+
+Build a modular gesture interaction system where recognized gestures control a contextual application interface rather than being tied to fixed actions.
+
+**Gesture → Context → Action**
