@@ -49,6 +49,17 @@ export default function GestureAppPage() {
   const gestureEngineRef = useRef(null);
   const animationFrameRef = useRef(null);
 
+  // Auto-start camera when redirected from Landing Page launch modal
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('autostart') === 'true') {
+        setHasStartedCamera(true);
+        setIsCameraActive(true);
+      }
+    }
+  }, []);
+
   // Subscribe to StateMachine updates
   useEffect(() => {
     const unsubscribe = stateMachine.subscribe((state) => {

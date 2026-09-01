@@ -16,8 +16,11 @@ import {
   Sliders,
 } from 'lucide-react';
 import { GESTURE_ICONS } from '../lib/gesture/mapping';
+import OpeningWorkspaceModal from '../components/Landing/OpeningWorkspaceModal';
 
 export default function LandingPage() {
+  const [isLaunching, setIsLaunching] = React.useState(false);
+
   const supportedGestures = [
     { emoji: '👍', name: 'Thumbs Up', role: 'Snap Photo / Confirm' },
     { emoji: '👎', name: 'Thumbs Down', role: 'Delete Selected Photo' },
@@ -28,6 +31,11 @@ export default function LandingPage() {
     { emoji: '✌', name: 'Peace Sign', role: 'Rotate Image 90° Right' },
     { emoji: '✊', name: 'Fist', role: 'Toggle Special Adjustments' },
   ];
+
+  const handleLaunch = (e) => {
+    e.preventDefault();
+    setIsLaunching(true);
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500 selection:text-slate-950">
@@ -42,13 +50,13 @@ export default function LandingPage() {
           </span>
         </div>
 
-        <Link
-          href="/use"
+        <button
+          onClick={handleLaunch}
           className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-slate-950 font-bold text-xs shadow-lg shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95"
         >
           <span>Launch Workspace</span>
           <ArrowRight className="w-4 h-4" />
-        </Link>
+        </button>
       </header>
 
       {/* Hero Section */}
@@ -69,14 +77,14 @@ export default function LandingPage() {
           Turn your webcam into a touch-free controller. Snap, browse, and edit photos in your browser with real-time MediaPipe AI &amp; TensorFlow.js.
         </p>
 
-        <Link
-          href="/use"
+        <button
+          onClick={handleLaunch}
           className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-slate-950 font-extrabold text-sm shadow-xl shadow-cyan-500/25 transition-all hover:scale-105 active:scale-95 flex items-center space-x-2"
         >
           <Camera className="w-4 h-4" />
           <span>Launch Photo Workspace</span>
           <ArrowRight className="w-4 h-4" />
-        </Link>
+        </button>
       </section>
 
       {/* 8 Natural Gestures Grid */}
@@ -140,11 +148,14 @@ export default function LandingPage() {
             <span>&mdash; Touch-Free Photo Workspace</span>
           </div>
 
-          <Link href="/use" className="text-cyan-400 hover:text-cyan-300 font-semibold transition">
+          <button onClick={handleLaunch} className="text-cyan-400 hover:text-cyan-300 font-semibold transition">
             Launch App (/use) &rarr;
-          </Link>
+          </button>
         </div>
       </footer>
+
+      {/* Opening Workspace Initialization Modal */}
+      <OpeningWorkspaceModal isOpen={isLaunching} onClose={() => setIsLaunching(false)} />
     </main>
   );
 }
