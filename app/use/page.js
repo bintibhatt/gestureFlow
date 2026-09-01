@@ -14,6 +14,7 @@ import ActionCountdownModal from '../../components/Gesture/ActionCountdownModal'
 import PhotoPoseShutterModal from '../../components/Camera/PhotoPoseShutterModal';
 import GestureGuideModal from '../../components/Gesture/GestureGuideModal';
 import ActivityLogModal from '../../components/Gesture/ActivityLogModal';
+import FeedbackModal from '../../components/Feedback/FeedbackModal';
 
 import { stateMachine, STATES } from '../../lib/state/machine';
 import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoader';
@@ -22,7 +23,7 @@ import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
 import { getPhotos, savePhoto } from '../../lib/storage/db';
 import { captureFrame } from '../../lib/image/processor';
-import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen, Terminal, History, Image as ImageIcon } from 'lucide-react';
+import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen, Terminal, History, Image as ImageIcon, MessageSquare } from 'lucide-react';
 
 export default function GestureAppPage() {
   const [appState, setAppState] = useState(stateMachine.getState());
@@ -31,6 +32,7 @@ export default function GestureAppPage() {
   const [showLandmarks, setShowLandmarks] = useState(true);
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   const [isLogModalOpen, setIsLogModalOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [gestureData, setGestureData] = useState({
     gesture: null,
     confidence: 0,
@@ -252,6 +254,14 @@ export default function GestureAppPage() {
           </button>
 
           <button
+            onClick={() => setIsFeedbackModalOpen(true)}
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-cyan-400 text-xs font-semibold transition"
+          >
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Feedback</span>
+          </button>
+
+          <button
             onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
             className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold transition"
           >
@@ -421,6 +431,9 @@ export default function GestureAppPage() {
         history={appState.actionHistory}
         onClearHistory={() => stateMachine.clearHistory()}
       />
+
+      {/* User Feedback Modal */}
+      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={() => setIsFeedbackModalOpen(false)} />
     </main>
   );
 }

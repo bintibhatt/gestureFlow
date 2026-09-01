@@ -14,9 +14,11 @@ import {
   Monitor,
   Database,
   Sliders,
+  MessageSquare,
 } from 'lucide-react';
 import { GESTURE_ICONS } from '../lib/gesture/mapping';
 import OpeningWorkspaceModal from '../components/Landing/OpeningWorkspaceModal';
+import FeedbackModal from '../components/Feedback/FeedbackModal';
 
 function GithubIcon({ className = 'w-4 h-4' }) {
   return (
@@ -32,6 +34,7 @@ function GithubIcon({ className = 'w-4 h-4' }) {
 
 export default function LandingPage() {
   const [isLaunching, setIsLaunching] = React.useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = React.useState(false);
 
   const supportedGestures = [
     { emoji: '👍', name: 'Thumbs Up', role: 'Snap Photo / Confirm' },
@@ -63,6 +66,14 @@ export default function LandingPage() {
         </div>
 
         <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setIsFeedbackModalOpen(true)}
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-medium text-cyan-400 transition"
+          >
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Feedback</span>
+          </button>
+
           <a
             href="https://github.com/bintibhatt"
             target="_blank"
@@ -189,6 +200,9 @@ export default function LandingPage() {
 
       {/* Opening Workspace Initialization Modal */}
       <OpeningWorkspaceModal isOpen={isLaunching} onClose={() => setIsLaunching(false)} />
+
+      {/* User Feedback Modal */}
+      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={() => setIsFeedbackModalOpen(false)} />
     </main>
   );
 }
