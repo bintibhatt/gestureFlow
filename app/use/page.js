@@ -13,11 +13,12 @@ import EditToolbar from '../../components/PhotoWorkspace/EditToolbar';
 import NavigationMenu from '../../components/Menu/NavigationMenu';
 import DeleteConfirmModal from '../../components/PhotoWorkspace/DeleteConfirmModal';
 import ActionCountdownModal from '../../components/Gesture/ActionCountdownModal';
+import PhotoPoseShutterModal from '../../components/Camera/PhotoPoseShutterModal';
 
 import { stateMachine, STATES } from '../../lib/state/machine';
 import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoader';
 import { GestureEngine } from '../../lib/gesture/engine';
-import { getActionForGesture } from '../../lib/gesture/mapping';
+import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
 import { getPhotos, savePhoto } from '../../lib/storage/db';
 import { captureFrame } from '../../lib/image/processor';
@@ -35,8 +36,12 @@ export default function GestureAppPage() {
     lifecycleState: 'NO_HAND',
   });
   const [isModelLoading, setIsModelLoading] = useState(true);
-
   const [isEngineReady, setIsEngineReady] = useState(false);
+
+  // Photo Pose Countdown State
+  const [poseCountdown, setPoseCountdown] = useState(null);
+  const [isFlashing, setIsFlashing] = useState(false);
+  const isPosingRef = useRef(false);
 
   const videoElementRef = useRef(null);
   const gestureEngineRef = useRef(null);
@@ -77,6 +82,31 @@ export default function GestureAppPage() {
     initEngine();
   }, []);
 
+  // 3-Second Pose Countdown Callback for Photo Capture
+  const triggerPosePhotoCapture = useCallback((videoElement) => {
+    if (isPosingRef.current) return;
+    isPosingRef.current = true;
+    setPoseCountdown(3);
+
+    let currentSeconds = 3;
+    const interval = setInterval(() => {
+      currentSeconds -= 1;
+      if (currentSeconds > 0) {
+        setPoseCountdown(currentSeconds);
+      } else {
+        clearInterval(interval);
+        setPoseCountdown(null);
+        setIsFlashing(true);
+        setTimeout(() => setIsFlashing(false), 500);
+
+        // Perform actual photo snapshot after 3-second pose delay
+        executeAction(ACTION_TYPES.TAKE_PHOTO, { videoElement }).finally(() => {
+          isPosingRef.current = false;
+        });
+      }
+    }, 1000);
+  }, []);
+
   // Real-time Frame Processing Loop
   const processFrameLoop = useCallback(async () => {
     if (gestureEngineRef.current && videoElementRef.current && isCameraActive && hasStartedCamera) {
@@ -90,16 +120,21 @@ export default function GestureAppPage() {
           if (result.triggeredGesture) {
             const mapped = getActionForGesture(result.triggeredGesture, stateMachine.getState().currentState);
             if (mapped && mapped.action) {
-              await executeAction(mapped.action, {
-                videoElement: video,
-              });
+              if (mapped.action === ACTION_TYPES.TAKE_PHOTO) {
+                // Give user 3 seconds to pose before snapping photo!
+                triggerPosePhotoCapture(video);
+              } else {
+                await executeAction(mapped.action, {
+                  videoElement: video,
+                });
+              }
             }
           }
         }
       }
     }
     animationFrameRef.current = requestAnimationFrame(processFrameLoop);
-  }, [isCameraActive, hasStartedCamera]);
+  }, [isCameraActive, hasStartedCamera, triggerPosePhotoCapture]);
 
   useEffect(() => {
     if (hasStartedCamera && isCameraActive && isEngineReady) {
@@ -123,16 +158,10 @@ export default function GestureAppPage() {
     setIsCameraActive(true);
   };
 
-  // Manual Photo Capture Fallback
+  // Manual Photo Capture (Triggers 3s Pose Countdown)
   const handleManualCapture = async () => {
     if (videoElementRef.current) {
-      const captured = captureFrame(videoElementRef.current);
-      if (captured) {
-        const saved = await savePhoto(captured);
-        const photos = await getPhotos();
-        stateMachine.setState(appState.currentState, { photos, selectedPhoto: saved });
-        stateMachine.logAction('📸', 'Manual Photo Snapshot', appState.currentState);
-      }
+      triggerPosePhotoCapture(videoElementRef.current);
     }
   };
 
@@ -331,6 +360,9 @@ export default function GestureAppPage() {
 
       {/* 3-Second Action Countdown Pop-up Overlay */}
       <ActionCountdownModal gestureData={gestureData} currentState={appState.currentState} />
+
+      {/* Photo Pose Shutter Timer & Camera Flash Overlay */}
+      <PhotoPoseShutterModal secondsLeft={poseCountdown} isFlashing={isFlashing} />
     </main>
   );
 }
