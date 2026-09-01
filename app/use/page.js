@@ -22,7 +22,7 @@ import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
 import { getPhotos, savePhoto } from '../../lib/storage/db';
 import { captureFrame } from '../../lib/image/processor';
-import { Sparkles, Camera, ArrowLeft, Shield, Video, Power } from 'lucide-react';
+import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu } from 'lucide-react';
 
 export default function GestureAppPage() {
   const [appState, setAppState] = useState(stateMachine.getState());
@@ -215,8 +215,19 @@ export default function GestureAppPage() {
           </div>
         </div>
 
-        {/* State Badges */}
+        {/* Workspace Quick Menu & State Badges */}
         <div className="flex items-center space-x-3">
+          <button
+            onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
+            className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border border-cyan-400/40 hover:border-cyan-400 text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/10 transition group"
+          >
+            <Menu className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span>Workspace Menu</span>
+            <span className="text-[10px] font-mono font-normal px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+              👌 OK
+            </span>
+          </button>
+
           <div className="flex items-center space-x-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
             <span className="text-slate-500">CONTEXT:</span>
             <span className="font-bold text-cyan-400">{appState.currentState}</span>
@@ -337,15 +348,21 @@ export default function GestureAppPage() {
 
       {/* Navigation Menu Modal */}
       {appState.currentState === STATES.MENU && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <NavigationMenu
-            menuOptions={appState.menuOptions}
-            selectedIndex={appState.menuIndex}
-            onSelectOption={async (idx) => {
-              stateMachine.setState(STATES.MENU, { menuIndex: idx });
-              await executeAction('MENU_SELECT');
-            }}
-          />
+        <div
+          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={() => stateMachine.transitionTo(STATES.HOME)}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <NavigationMenu
+              menuOptions={appState.menuOptions}
+              selectedIndex={appState.menuIndex}
+              onSelectOption={async (idx) => {
+                stateMachine.setState(STATES.MENU, { menuIndex: idx });
+                await executeAction('MENU_SELECT');
+              }}
+              onCloseMenu={() => stateMachine.transitionTo(STATES.HOME)}
+            />
+          </div>
         </div>
       )}
 

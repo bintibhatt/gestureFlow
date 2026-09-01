@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Menu, ChevronRight, Check, Compass, Image as ImageIcon, Camera, Trash } from 'lucide-react';
+import { Menu, ChevronRight, Check, Compass, Image as ImageIcon, Camera, Trash, X } from 'lucide-react';
 
 const MENU_ICONS = {
   'Browse Photos': Compass,
@@ -23,9 +23,20 @@ export default function NavigationMenu({
           <Menu className="w-5 h-5 text-cyan-400" />
           <h3 className="text-sm font-bold text-slate-100 tracking-wider">NAVIGATION MENU</h3>
         </div>
-        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-1 rounded-full">
-          GESTURE CONTROLLED
-        </span>
+        <div className="flex items-center space-x-2">
+          <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-1 rounded-full">
+            GESTURE CONTROLLED
+          </span>
+          {onCloseMenu && (
+            <button
+              onClick={onCloseMenu}
+              className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
+              title="Close Menu (✋ Palm)"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="space-y-2">
