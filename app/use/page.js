@@ -14,6 +14,7 @@ import NavigationMenu from '../../components/Menu/NavigationMenu';
 import DeleteConfirmModal from '../../components/PhotoWorkspace/DeleteConfirmModal';
 import ActionCountdownModal from '../../components/Gesture/ActionCountdownModal';
 import PhotoPoseShutterModal from '../../components/Camera/PhotoPoseShutterModal';
+import GestureGuideModal from '../../components/Gesture/GestureGuideModal';
 
 import { stateMachine, STATES } from '../../lib/state/machine';
 import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoader';
@@ -22,13 +23,14 @@ import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
 import { getPhotos, savePhoto } from '../../lib/storage/db';
 import { captureFrame } from '../../lib/image/processor';
-import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu } from 'lucide-react';
+import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen } from 'lucide-react';
 
 export default function GestureAppPage() {
   const [appState, setAppState] = useState(stateMachine.getState());
   const [hasStartedCamera, setHasStartedCamera] = useState(false);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [showLandmarks, setShowLandmarks] = useState(true);
+  const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   const [gestureData, setGestureData] = useState({
     gesture: null,
     confidence: 0,
@@ -218,14 +220,20 @@ export default function GestureAppPage() {
         {/* Workspace Quick Menu & State Badges */}
         <div className="flex items-center space-x-3">
           <button
-            onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
-            className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border border-cyan-400/40 hover:border-cyan-400 text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/10 transition group"
+            onClick={() => setIsGuideModalOpen(true)}
+            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 border border-violet-400/40 hover:border-violet-400 text-violet-300 text-xs font-bold shadow-lg shadow-violet-500/10 transition group"
           >
-            <Menu className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
-            <span>Workspace Menu</span>
-            <span className="text-[10px] font-mono font-normal px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
-              👌 OK
-            </span>
+            <BookOpen className="w-4 h-4 text-violet-400 group-hover:scale-110 transition-transform" />
+            <span>Gesture Controls Menu</span>
+          </button>
+
+          <button
+            onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
+            className="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold transition"
+          >
+            <Menu className="w-4 h-4 text-cyan-400" />
+            <span>Actions Menu</span>
+            <span className="text-[10px] font-mono text-cyan-400">👌</span>
           </button>
 
           <div className="flex items-center space-x-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
@@ -380,6 +388,13 @@ export default function GestureAppPage() {
 
       {/* Photo Pose Shutter Timer & Camera Flash Overlay */}
       <PhotoPoseShutterModal secondsLeft={poseCountdown} isFlashing={isFlashing} />
+
+      {/* Gesture Controls Reference Menu Modal */}
+      <GestureGuideModal
+        isOpen={isGuideModalOpen}
+        onClose={() => setIsGuideModalOpen(false)}
+        currentState={appState.currentState}
+      />
     </main>
   );
 }
