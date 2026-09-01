@@ -224,7 +224,7 @@ export default function GestureAppPage() {
             className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 border border-violet-400/40 hover:border-violet-400 text-violet-300 text-xs font-bold shadow-lg shadow-violet-500/10 transition group"
           >
             <BookOpen className="w-4 h-4 text-violet-400 group-hover:scale-110 transition-transform" />
-            <span>Gesture Menu</span>
+            <span>Gesture Guide</span>
           </button>
 
           <button
