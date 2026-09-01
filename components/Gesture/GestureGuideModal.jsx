@@ -24,7 +24,7 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
       onClick={onClose}
     >
       <div
-        className="bg-slate-900/95 border-2 border-violet-500/40 p-6 sm:p-8 rounded-3xl shadow-2xl max-w-2xl w-full flex flex-col space-y-6 transform animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto"
+        className="bg-slate-900/95 border-2 border-violet-500/40 p-5 sm:p-8 rounded-3xl shadow-2xl max-w-2xl w-full flex flex-col space-y-4 sm:space-y-6 transform animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto custom-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

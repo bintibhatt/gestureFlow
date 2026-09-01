@@ -73,7 +73,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-slate-900/95 border-2 border-cyan-500/40 p-6 sm:p-8 rounded-3xl shadow-2xl max-w-md w-full flex flex-col space-y-5 transform animate-in zoom-in-95 duration-200"
+        className="bg-slate-900/95 border-2 border-cyan-500/40 p-5 sm:p-8 rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col space-y-4 sm:space-y-5 transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

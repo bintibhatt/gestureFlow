@@ -53,26 +53,28 @@ export default function CanvasViewer({ photo, currentState }) {
   const isEditing = currentState.startsWith('EDIT');
 
   return (
-    <div className="relative w-full h-full min-h-[380px] bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between group shadow-2xl">
+    <div className="relative w-full h-full min-h-[250px] sm:min-h-[380px] bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between group shadow-2xl">
       {/* Top Bar Header */}
-      <div className="z-10 flex items-center justify-between p-4 bg-gradient-to-b from-slate-950/90 to-transparent backdrop-blur-sm">
-        <div className="flex items-center space-x-2.5">
-          <span className="text-xs font-bold text-slate-200">{photo.name || 'Captured Photo'}</span>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+      <div className="z-10 flex flex-wrap items-center justify-between gap-1.5 p-3 sm:p-4 bg-gradient-to-b from-slate-950/90 to-transparent backdrop-blur-sm">
+        <div className="flex items-center space-x-2">
+          <span className="text-xs font-bold text-slate-200 truncate max-w-[140px] sm:max-w-[220px]">
+            {photo.name || 'Captured Photo'}
+          </span>
+          <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
             {photo.width}x{photo.height}
           </span>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1.5">
           {undoCount > 0 && (
-            <span className="flex items-center space-x-1 text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
+            <span className="flex items-center space-x-1 text-[9px] sm:text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
               <History className="w-3 h-3" />
               <span>{undoCount} edits</span>
             </span>
           )}
 
           {isEditing && (
-            <span className="flex items-center space-x-1 text-[11px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full animate-pulse">
+            <span className="flex items-center space-x-1 text-[10px] sm:text-[11px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 sm:px-2.5 py-0.5 rounded-full animate-pulse">
               <Sliders className="w-3 h-3" />
               <span>{currentState}</span>
             </span>
@@ -81,16 +83,16 @@ export default function CanvasViewer({ photo, currentState }) {
       </div>
 
       {/* Main Canvas Viewport */}
-      <div className="flex-1 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="flex-1 flex items-center justify-center p-2 sm:p-4 relative overflow-hidden">
         <canvas
           ref={canvasRef}
-          className="max-w-full max-h-[460px] object-contain rounded-2xl shadow-2xl border border-slate-800/80 transition-all duration-300"
+          className="max-w-full max-h-[300px] sm:max-h-[460px] object-contain rounded-2xl shadow-2xl border border-slate-800/80 transition-all duration-300"
         />
       </div>
 
       {/* Bottom Telemetry & Transform Bar */}
-      <div className="z-10 p-3.5 bg-slate-900/90 border-t border-slate-800 backdrop-blur-md flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400">
-        <div className="flex items-center space-x-3">
+      <div className="z-10 p-2.5 sm:p-3.5 bg-slate-900/90 border-t border-slate-800 backdrop-blur-md flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span>
             BRT: <strong className="text-cyan-400">{brightness}%</strong>
           </span>
@@ -109,7 +111,7 @@ export default function CanvasViewer({ photo, currentState }) {
             </span>
           )}
         </div>
-        <span className="text-[10px] text-slate-500">
+        <span className="text-[9px] sm:text-[10px] text-slate-500">
           {new Date(photo.timestamp).toLocaleTimeString()}
         </span>
       </div>

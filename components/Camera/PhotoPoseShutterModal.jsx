@@ -18,7 +18,7 @@ export default function PhotoPoseShutterModal({ secondsLeft, isFlashing }) {
         <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-md animate-fade-in" />
 
-          <div className="relative z-10 bg-slate-900/90 border-2 border-amber-400/60 p-8 rounded-3xl shadow-2xl shadow-amber-500/20 max-w-sm w-full text-center flex flex-col items-center space-y-4 animate-in zoom-in-95">
+          <div className="relative z-10 bg-slate-900/90 border-2 border-amber-400/60 p-5 sm:p-8 rounded-3xl shadow-2xl shadow-amber-500/20 max-w-sm w-full max-h-[90vh] overflow-y-auto custom-scrollbar text-center flex flex-col items-center space-y-4 animate-in zoom-in-95">
             {/* Header pill */}
             <div className="flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-400/30 text-xs font-mono font-bold text-amber-400">
               <Camera className="w-4 h-4 text-amber-400 animate-pulse" />

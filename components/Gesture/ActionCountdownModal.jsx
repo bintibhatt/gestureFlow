@@ -38,7 +38,7 @@ export default function ActionCountdownModal({
       <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity duration-300 animate-fade-in" />
 
       {/* Main Glassmorphism Modal Box */}
-      <div className="relative z-10 bg-slate-900/90 border-2 border-cyan-500/50 p-6 sm:p-8 rounded-3xl shadow-2xl shadow-cyan-500/20 max-w-sm w-full text-center flex flex-col items-center space-y-5 transform transition-all duration-300 animate-in zoom-in-95">
+      <div className="relative z-10 bg-slate-900/90 border-2 border-cyan-500/50 p-5 sm:p-8 rounded-3xl shadow-2xl shadow-cyan-500/20 max-w-sm w-full max-h-[90vh] overflow-y-auto custom-scrollbar text-center flex flex-col items-center space-y-4 sm:space-y-5 transform transition-all duration-300 animate-in zoom-in-95">
         {/* Top Header Tag */}
         <div className="flex items-center space-x-2 px-3.5 py-1 rounded-full bg-slate-950/80 border border-cyan-500/30 text-xs font-mono font-semibold text-cyan-400">
           <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin" />

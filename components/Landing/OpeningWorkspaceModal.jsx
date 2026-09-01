@@ -46,7 +46,7 @@ export default function OpeningWorkspaceModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="relative bg-slate-900/95 border-2 border-cyan-500/50 p-8 rounded-3xl shadow-2xl shadow-cyan-500/20 max-w-md w-full text-center flex flex-col items-center space-y-6 transform animate-in zoom-in-95 duration-200">
+      <div className="relative bg-slate-900/95 border-2 border-cyan-500/50 p-5 sm:p-8 rounded-3xl shadow-2xl shadow-cyan-500/20 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar text-center flex flex-col items-center space-y-5 sm:space-y-6 transform animate-in zoom-in-95 duration-200">
         {/* Glow Ring */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
 

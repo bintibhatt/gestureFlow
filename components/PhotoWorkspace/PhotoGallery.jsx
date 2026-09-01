@@ -22,18 +22,18 @@ export default function PhotoGallery({
   }
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-5 rounded-3xl shadow-xl flex flex-col space-y-3">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-3.5 sm:p-5 rounded-3xl shadow-xl flex flex-col space-y-2.5 sm:space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 sm:pb-3">
         <div className="flex items-center space-x-2">
           <Images className="w-4 h-4 text-cyan-400" />
           <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider">PHOTO GALLERY</h3>
         </div>
-        <span className="text-[11px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded-full">
+        <span className="text-[10px] sm:text-[11px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 sm:px-2.5 py-0.5 rounded-full">
           {selectedIndex + 1} / {photos.length} {photos.length === 1 ? 'PHOTO' : 'PHOTOS'}
         </span>
       </div>
 
-      <div className="grid grid-cols-4 sm:grid-cols-6 gap-2.5 max-h-[160px] overflow-y-auto custom-scrollbar p-1">
+      <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-2.5 max-h-[160px] overflow-y-auto custom-scrollbar p-1">
         {photos.map((photo, idx) => {
           const isSelected = idx === selectedIndex;
           const imgSrc = photo.currentDataUrl || photo.originalDataUrl || photo.dataUrl;
@@ -55,8 +55,8 @@ export default function PhotoGallery({
               />
 
               {isSelected && (
-                <div className="absolute top-1.5 right-1.5 bg-cyan-500 rounded-full p-0.5 text-slate-950 shadow-md">
-                  <CheckCircle2 className="w-3 h-3" />
+                <div className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 bg-cyan-500 rounded-full p-0.5 text-slate-950 shadow-md">
+                  <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 </div>
               )}
 
@@ -66,9 +66,9 @@ export default function PhotoGallery({
                   if (onRequestDelete) onRequestDelete(photo);
                 }}
                 title="Delete Photo"
-                className="absolute bottom-1.5 right-1.5 p-1.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-xl opacity-0 group-hover:opacity-100 transition shadow-lg"
+                className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 p-1 sm:p-1.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-xl opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition shadow-lg"
               >
-                <Trash2 className="w-3 h-3" />
+                <Trash2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               </button>
             </div>
           );
