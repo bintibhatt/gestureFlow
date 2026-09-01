@@ -12,6 +12,7 @@ import PhotoGallery from '../../components/PhotoWorkspace/PhotoGallery';
 import EditToolbar from '../../components/PhotoWorkspace/EditToolbar';
 import NavigationMenu from '../../components/Menu/NavigationMenu';
 import DeleteConfirmModal from '../../components/PhotoWorkspace/DeleteConfirmModal';
+import ActionCountdownModal from '../../components/Gesture/ActionCountdownModal';
 
 import { stateMachine, STATES } from '../../lib/state/machine';
 import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoader';
@@ -327,6 +328,9 @@ export default function GestureAppPage() {
           onCancel={async () => await executeAction('CANCEL_DELETE')}
         />
       )}
+
+      {/* 3-Second Action Countdown Pop-up Overlay */}
+      <ActionCountdownModal gestureData={gestureData} currentState={appState.currentState} />
     </main>
   );
 }
