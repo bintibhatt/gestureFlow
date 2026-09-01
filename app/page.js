@@ -19,6 +19,7 @@ import {
 import { GESTURE_ICONS } from '../lib/gesture/mapping';
 import OpeningWorkspaceModal from '../components/Landing/OpeningWorkspaceModal';
 import FeedbackModal from '../components/Feedback/FeedbackModal';
+import GestureFlowMark from '../components/Brand/GestureFlowMark';
 
 function GithubIcon({ className = 'w-4 h-4' }) {
   return (
@@ -57,8 +58,8 @@ export default function LandingPage() {
       {/* Top Navbar */}
       <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <Sparkles className="w-4 h-4 text-white" />
+          <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shadow-lg shadow-cyan-500/10 overflow-hidden">
+            <GestureFlowMark className="w-9 h-9" />
           </div>
           <span className="text-base font-extrabold tracking-tight text-slate-100">
             GestureFlow <span className="text-xs font-mono font-normal text-cyan-400">v2.0</span>
