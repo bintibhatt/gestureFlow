@@ -5,8 +5,6 @@ import Link from 'next/link';
 import CameraFeed from '../../components/Camera/CameraFeed';
 import CameraControls from '../../components/Camera/CameraControls';
 import GestureHUD from '../../components/Gesture/GestureHUD';
-import GestureGuide from '../../components/Gesture/GestureGuide';
-import ActionHistory from '../../components/Gesture/ActionHistory';
 import CanvasViewer from '../../components/PhotoWorkspace/CanvasViewer';
 import PhotoGallery from '../../components/PhotoWorkspace/PhotoGallery';
 import EditToolbar from '../../components/PhotoWorkspace/EditToolbar';
@@ -15,6 +13,7 @@ import DeleteConfirmModal from '../../components/PhotoWorkspace/DeleteConfirmMod
 import ActionCountdownModal from '../../components/Gesture/ActionCountdownModal';
 import PhotoPoseShutterModal from '../../components/Camera/PhotoPoseShutterModal';
 import GestureGuideModal from '../../components/Gesture/GestureGuideModal';
+import ActivityLogModal from '../../components/Gesture/ActivityLogModal';
 
 import { stateMachine, STATES } from '../../lib/state/machine';
 import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoader';
@@ -23,7 +22,7 @@ import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
 import { getPhotos, savePhoto } from '../../lib/storage/db';
 import { captureFrame } from '../../lib/image/processor';
-import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen } from 'lucide-react';
+import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen, Terminal, History, Image as ImageIcon } from 'lucide-react';
 
 export default function GestureAppPage() {
   const [appState, setAppState] = useState(stateMachine.getState());
@@ -31,6 +30,7 @@ export default function GestureAppPage() {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [showLandmarks, setShowLandmarks] = useState(true);
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
+  const [isLogModalOpen, setIsLogModalOpen] = useState(false);
   const [gestureData, setGestureData] = useState({
     gesture: null,
     confidence: 0,
@@ -224,12 +224,25 @@ export default function GestureAppPage() {
             className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 border border-violet-400/40 hover:border-violet-400 text-violet-300 text-xs font-bold shadow-lg shadow-violet-500/10 transition group"
           >
             <BookOpen className="w-4 h-4 text-violet-400 group-hover:scale-110 transition-transform" />
-            <span>Gesture Controls Menu</span>
+            <span>Gesture Menu</span>
+          </button>
+
+          <button
+            onClick={() => setIsLogModalOpen(true)}
+            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-400/40 hover:border-emerald-400 text-emerald-300 text-xs font-bold shadow-lg shadow-emerald-500/10 transition group relative"
+          >
+            <History className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
+            <span>Activity Logs</span>
+            {appState.actionHistory.length > 0 && (
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-mono text-[10px] font-bold">
+                {appState.actionHistory.length}
+              </span>
+            )}
           </button>
 
           <button
             onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
-            className="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold transition"
+            className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-semibold transition"
           >
             <Menu className="w-4 h-4 text-cyan-400" />
             <span>Actions Menu</span>
@@ -291,11 +304,11 @@ export default function GestureAppPage() {
       ) : (
         /* Active Interactive Workspace */
         <div className="flex-1 p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto w-full">
-          {/* Left Column: Camera & Gesture Telemetry (5 cols) */}
+          {/* Left Column: Camera Feed & Real-Time Gesture HUD (5 cols) */}
           <div className="lg:col-span-5 space-y-6 flex flex-col">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
+            <div className="space-y-3 bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-4 rounded-3xl shadow-xl">
+              <div className="flex items-center justify-between pb-1">
+                <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
                   <Camera className="w-4 h-4 text-cyan-400" />
                   <span>Webcam Feed</span>
                 </span>
@@ -317,14 +330,11 @@ export default function GestureAppPage() {
               </div>
             </div>
 
-            {/* Gesture HUD */}
+            {/* Gesture Telemetry HUD */}
             <GestureHUD gestureData={gestureData} currentState={appState.currentState} />
-
-            {/* Action History Log */}
-            <ActionHistory history={appState.actionHistory} />
           </div>
 
-          {/* Right Column: Photo Canvas Workspace, Controls & Gallery (7 cols) */}
+          {/* Right Column: Photo Canvas Workspace & Gallery (7 cols) */}
           <div className="lg:col-span-7 space-y-6 flex flex-col">
             {/* Main Canvas Viewer */}
             <div className="flex-1 min-h-[380px]">
@@ -347,9 +357,6 @@ export default function GestureAppPage() {
               onSelectPhoto={handleSelectPhoto}
               onRequestDelete={handleRequestDelete}
             />
-
-            {/* Dynamic Gesture Cheat Sheet */}
-            <GestureGuide currentState={appState.currentState} />
           </div>
         </div>
       )}
@@ -394,6 +401,14 @@ export default function GestureAppPage() {
         isOpen={isGuideModalOpen}
         onClose={() => setIsGuideModalOpen(false)}
         currentState={appState.currentState}
+      />
+
+      {/* Activity Logs Terminal Modal */}
+      <ActivityLogModal
+        isOpen={isLogModalOpen}
+        onClose={() => setIsLogModalOpen(false)}
+        history={appState.actionHistory}
+        onClearHistory={() => stateMachine.clearHistory()}
       />
     </main>
   );
