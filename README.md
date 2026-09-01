@@ -138,3 +138,10 @@ gesture-flow/
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) for the landing page or [http://localhost:3000/use](http://localhost:3000/use) to launch the touch-free photo workspace.
+
+---
+
+## 👤 Author
+
+Created with ❤️ by **[Binti Bhatt](https://github.com/bintibhatt)**.
+
