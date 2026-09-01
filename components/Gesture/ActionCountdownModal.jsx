@@ -12,7 +12,7 @@ export default function ActionCountdownModal({
     pendingGesture,
     gesture,
     countdownProgress = 0,
-    countdownSeconds = 3,
+    countdownSeconds = 2,
     triggeredGesture,
     lifecycleState,
   } = gestureData;
@@ -98,7 +98,7 @@ export default function ActionCountdownModal({
           <p className="text-xs text-slate-400 leading-relaxed max-w-[240px] mx-auto">
             {isExecuting
               ? 'Gesture action successfully performed.'
-              : 'Hold hand steady for 3 seconds to confirm or lower hand to cancel.'}
+              : 'Hold hand steady for 2 seconds to confirm or lower hand to cancel.'}
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export default function ActionCountdownModal({
           <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 px-1">
             <span className="flex items-center space-x-1 text-slate-500">
               <Timer className="w-3 h-3 text-cyan-400" />
-              <span>3-SEC HOLD</span>
+              <span>2-SEC HOLD</span>
             </span>
             <span className={isExecuting ? 'text-emerald-400 font-bold' : 'text-cyan-400 font-bold'}>
               {Math.round(countdownProgress * 100)}%

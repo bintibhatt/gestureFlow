@@ -82,13 +82,13 @@ export default function GestureAppPage() {
     initEngine();
   }, []);
 
-  // 3-Second Pose Countdown Callback for Photo Capture
+  // 2-Second Pose Countdown Callback for Photo Capture
   const triggerPosePhotoCapture = useCallback((videoElement) => {
     if (isPosingRef.current) return;
     isPosingRef.current = true;
-    setPoseCountdown(3);
+    setPoseCountdown(2);
 
-    let currentSeconds = 3;
+    let currentSeconds = 2;
     const interval = setInterval(() => {
       currentSeconds -= 1;
       if (currentSeconds > 0) {
@@ -99,7 +99,7 @@ export default function GestureAppPage() {
         setIsFlashing(true);
         setTimeout(() => setIsFlashing(false), 500);
 
-        // Perform actual photo snapshot after 3-second pose delay
+        // Perform actual photo snapshot after 2-second pose delay
         executeAction(ACTION_TYPES.TAKE_PHOTO, { videoElement }).finally(() => {
           isPosingRef.current = false;
         });
