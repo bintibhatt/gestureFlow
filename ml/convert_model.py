@@ -24,8 +24,12 @@ with h5py.File(h5_path, 'r') as f:
         if isinstance(obj, h5py.Dataset):
             data = np.array(obj, dtype=np.float32)
             weights_bytes.extend(data.tobytes())
+            parts = name.split('/')
+            clean_name = f"{parts[0]}/{parts[-1]}"
+            if clean_name.endswith(':0'):
+                clean_name = clean_name[:-2]
             weights_manifest_entries.append({
-                "name": name,
+                "name": clean_name,
                 "shape": list(data.shape),
                 "dtype": "float32"
             })
