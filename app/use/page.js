@@ -50,6 +50,8 @@ export default function GestureAppPage() {
   const videoElementRef = useRef(null);
   const gestureEngineRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const lastInferenceTimeRef = useRef(0);
+  const INFERENCE_INTERVAL_MS = 33; // ~30 FPS target for AI inference
 
   // Auto-start camera when redirected from Landing Page launch modal & clean up query string
   useEffect(() => {
@@ -124,26 +126,30 @@ export default function GestureAppPage() {
     }, 1000);
   }, []);
 
-  // Real-time Frame Processing Loop
+  // Real-time Frame Processing Loop with ~30 FPS throttling
   const processFrameLoop = useCallback(async () => {
     if (gestureEngineRef.current && videoElementRef.current && isCameraActive && hasStartedCamera) {
       const video = videoElementRef.current;
       if (video.readyState >= 2 && !video.paused && !video.ended) {
-        const result = await gestureEngineRef.current.processFrame(video);
-        if (result) {
-          setGestureData(result);
+        const now = performance.now();
+        if (now - lastInferenceTimeRef.current >= INFERENCE_INTERVAL_MS) {
+          lastInferenceTimeRef.current = now;
 
-          // Execute action if gesture was confirmed
-          if (result.triggeredGesture) {
-            const mapped = getActionForGesture(result.triggeredGesture, stateMachine.getState().currentState);
-            if (mapped && mapped.action) {
-              if (mapped.action === ACTION_TYPES.TAKE_PHOTO) {
-                // Give user 3 seconds to pose before snapping photo!
-                triggerPosePhotoCapture(video);
-              } else {
-                await executeAction(mapped.action, {
-                  videoElement: video,
-                });
+          const result = await gestureEngineRef.current.processFrame(video);
+          if (result) {
+            setGestureData(result);
+
+            // Execute action if gesture was confirmed
+            if (result.triggeredGesture) {
+              const mapped = getActionForGesture(result.triggeredGesture, stateMachine.getState().currentState);
+              if (mapped && mapped.action) {
+                if (mapped.action === ACTION_TYPES.TAKE_PHOTO) {
+                  triggerPosePhotoCapture(video);
+                } else {
+                  await executeAction(mapped.action, {
+                    videoElement: video,
+                  });
+                }
               }
             }
           }
@@ -165,44 +171,44 @@ export default function GestureAppPage() {
   }, [processFrameLoop, hasStartedCamera, isCameraActive, isEngineReady]);
 
   // Video element readiness callback
-  const handleVideoReady = (videoEl) => {
+  const handleVideoReady = useCallback((videoEl) => {
     videoElementRef.current = videoEl;
-  };
+  }, []);
 
   // Start Camera Consent Flow
-  const handleStartCamera = () => {
+  const handleStartCamera = useCallback(() => {
     setHasStartedCamera(true);
     setIsCameraActive(true);
-  };
+  }, []);
 
-  // Manual Photo Capture (Triggers 3s Pose Countdown)
-  const handleManualCapture = async () => {
+  // Manual Photo Capture (Triggers 2s Pose Countdown)
+  const handleManualCapture = useCallback(async () => {
     if (videoElementRef.current) {
       triggerPosePhotoCapture(videoElementRef.current);
     }
-  };
+  }, [triggerPosePhotoCapture]);
 
   // Select Photo from Gallery
-  const handleSelectPhoto = (idx, photo) => {
+  const handleSelectPhoto = useCallback((idx, photo) => {
     stateMachine.setState(appState.currentState, {
       browseIndex: idx,
       selectedPhoto: photo,
     });
-  };
+  }, [appState.currentState]);
 
   // Request Photo Deletion (opens Confirmation modal)
-  const handleRequestDelete = (photo) => {
+  const handleRequestDelete = useCallback((photo) => {
     stateMachine.transitionTo(STATES.CONFIRM_DELETE, {
       deleteCandidate: photo,
       deleteContext: appState.currentState,
     });
-  };
+  }, [appState.currentState]);
 
   // Edit Tool selection via click fallback
-  const handleSelectEditTool = async (idx, toolName) => {
+  const handleSelectEditTool = useCallback(async (idx, toolName) => {
     stateMachine.setState(appState.currentState, { editToolIndex: idx });
     await executeAction('EDIT_TOOL_SELECT');
-  };
+  }, [appState.currentState]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white">

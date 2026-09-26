@@ -3,7 +3,7 @@
 import React from 'react';
 import { Images, Trash2, CheckCircle2 } from 'lucide-react';
 
-export default function PhotoGallery({
+const PhotoGallery = React.memo(function PhotoGallery({
   photos = [],
   selectedIndex = 0,
   onSelectPhoto,
@@ -76,4 +76,6 @@ export default function PhotoGallery({
       </div>
     </div>
   );
-}
+});
+
+export default PhotoGallery;

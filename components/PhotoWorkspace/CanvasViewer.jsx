@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { renderTransformedImage, DEFAULT_FILTERS, DEFAULT_TRANSFORMS } from '../../lib/image/processor';
 import { Image as ImageIcon, Sliders, RotateCw, FlipHorizontal, History, CheckCircle2 } from 'lucide-react';
 
-export default function CanvasViewer({ photo, currentState }) {
+const CanvasViewer = React.memo(function CanvasViewer({ photo, currentState }) {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
 
@@ -117,4 +117,6 @@ export default function CanvasViewer({ photo, currentState }) {
       </div>
     </div>
   );
-}
+});
+
+export default CanvasViewer;

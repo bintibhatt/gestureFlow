@@ -3,7 +3,7 @@
 import React from 'react';
 import { Camera, CameraOff, Eye, EyeOff, Camera as CameraIcon } from 'lucide-react';
 
-export default function CameraControls({
+const CameraControls = React.memo(function CameraControls({
   isCameraActive,
   onToggleCamera,
   showLandmarks,
@@ -55,4 +55,6 @@ export default function CameraControls({
       )}
     </div>
   );
-}
+});
+
+export default CameraControls;

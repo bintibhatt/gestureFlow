@@ -4,7 +4,7 @@ import React from 'react';
 import { Sun, Contrast, Eye, RotateCw, FlipHorizontal, Undo2, RotateCcw, Sparkles } from 'lucide-react';
 import { EDIT_TOOLS, STATES } from '../../lib/state/machine';
 
-export default function EditToolbar({
+const EditToolbar = React.memo(function EditToolbar({
   currentState,
   editToolIndex = 0,
   onSelectTool,
@@ -69,4 +69,6 @@ export default function EditToolbar({
       </div>
     </div>
   );
-}
+});
+
+export default EditToolbar;

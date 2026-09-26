@@ -4,7 +4,7 @@ import React from 'react';
 import { getActionForGesture, GESTURE_ICONS } from '../../lib/gesture/mapping';
 import { Sparkles, Zap, ShieldCheck, Activity } from 'lucide-react';
 
-export default function GestureHUD({
+const GestureHUD = React.memo(function GestureHUD({
   gestureData = {},
   currentState = 'HOME',
 }) {
@@ -117,4 +117,6 @@ export default function GestureHUD({
       </div>
     </div>
   );
-}
+});
+
+export default GestureHUD;

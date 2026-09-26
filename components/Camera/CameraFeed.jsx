@@ -11,7 +11,7 @@ const HAND_CONNECTIONS = [
   [13, 17], [0, 17], [17, 18], [18, 19], [19, 20], // Pinky
 ];
 
-export default function CameraFeed({
+const CameraFeed = React.memo(function CameraFeed({
   onVideoReady,
   handsData = [],
   showLandmarks = true,
@@ -269,4 +269,6 @@ export default function CameraFeed({
       )}
     </div>
   );
-}
+});
+
+export default CameraFeed;

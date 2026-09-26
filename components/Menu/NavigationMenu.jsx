@@ -10,7 +10,7 @@ const MENU_ICONS = {
   'Clear All Photos': Trash,
 };
 
-export default function NavigationMenu({
+const NavigationMenu = React.memo(function NavigationMenu({
   menuOptions = [],
   selectedIndex = 0,
   onSelectOption,
@@ -86,4 +86,6 @@ export default function NavigationMenu({
       </div>
     </div>
   );
-}
+});
+
+export default NavigationMenu;
