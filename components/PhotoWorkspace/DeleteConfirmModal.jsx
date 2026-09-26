@@ -12,13 +12,13 @@ export default function DeleteConfirmModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-slate-900 border border-rose-500/40 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl shadow-rose-950/40 flex flex-col space-y-4 sm:space-y-5 text-center">
+      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 max-w-md w-full text-center flex flex-col space-y-4 shadow-xl">
         {/* Warning Icon Header */}
-        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center mx-auto text-rose-400 shadow-lg shadow-rose-500/10 shrink-0">
-          <AlertTriangle className="w-6 h-6 sm:w-7 sm:h-7" />
+        <div className="w-12 h-12 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mx-auto text-rose-400 shrink-0">
+          <AlertTriangle className="w-6 h-6" />
         </div>
 
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <h2 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight">Delete This Photo?</h2>
           <p className="text-xs text-slate-400 max-w-xs mx-auto">
             This photo will be permanently removed from your browser&apos;s local IndexedDB gallery.
@@ -26,22 +26,22 @@ export default function DeleteConfirmModal({
         </div>
 
         {/* Photo Preview Thumbnail */}
-        <div className="relative aspect-video max-h-36 sm:max-h-44 rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 mx-auto w-full flex items-center justify-center shadow-inner">
+        <div className="relative aspect-video max-h-36 sm:max-h-44 rounded-lg overflow-hidden border border-slate-800 bg-slate-950 mx-auto w-full flex items-center justify-center">
           <img
             src={photo.currentDataUrl || photo.originalDataUrl || photo.dataUrl}
             alt={photo.name}
             className="w-full h-full object-contain"
           />
-          <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-slate-950/80 backdrop-blur-md border border-slate-800 text-[10px] font-mono text-slate-300">
+          <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-slate-950/80 border border-slate-800 text-[10px] font-mono text-slate-300">
             {photo.name}
           </div>
         </div>
 
         {/* Gesture Guidance */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3 pt-1">
+        <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 pt-1">
           <button
             onClick={onConfirm}
-            className="flex items-center justify-center space-x-2 p-2.5 sm:p-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-lg shadow-rose-600/30 transition active:scale-95 border border-rose-500"
+            className="flex items-center justify-center space-x-2 p-2.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-medium transition"
           >
             <span className="text-base">👌</span>
             <div className="text-left leading-tight">
@@ -52,7 +52,7 @@ export default function DeleteConfirmModal({
 
           <button
             onClick={onCancel}
-            className="flex items-center justify-center space-x-2 p-2.5 sm:p-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition active:scale-95"
+            className="flex items-center justify-center space-x-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition"
           >
             <span className="text-base">✋</span>
             <div className="text-left leading-tight">

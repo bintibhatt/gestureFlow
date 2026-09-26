@@ -23,19 +23,19 @@ export default function ActivityLogModal({ isOpen, onClose, history = [], onClea
       onClick={onClose}
     >
       <div
-        className="bg-slate-900/95 border-2 border-emerald-500/40 p-4 sm:p-6 md:p-8 rounded-3xl shadow-2xl max-w-xl w-full flex flex-col space-y-4 sm:space-y-5 transform animate-in zoom-in-95 duration-200 max-h-[85vh] overflow-hidden"
+        className="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl shadow-xl max-w-xl w-full flex flex-col space-y-4 transform animate-in zoom-in-95 duration-200 max-h-[85vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3 sm:pb-4">
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-500/10 shrink-0">
-              <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
+        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+              <Terminal className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-xs sm:text-base font-extrabold text-slate-100 tracking-tight flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-100 tracking-tight flex flex-wrap items-center gap-1.5">
                 <span>Gesture Activity Logs</span>
-                <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
                   {history.length} EVENTS
                 </span>
               </h3>
@@ -43,55 +43,55 @@ export default function ActivityLogModal({ isOpen, onClose, history = [], onClea
             </div>
           </div>
 
-          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+          <div className="flex items-center space-x-1.5 shrink-0">
             <button
               onClick={handleCopyLogs}
-              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1 text-xs"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center space-x-1 text-xs"
               title="Copy logs to clipboard"
             >
-              {copied ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
             {onClearHistory && history.length > 0 && (
               <button
                 onClick={onClearHistory}
-                className="p-1.5 sm:p-2 rounded-xl bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 text-rose-400 transition"
+                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 transition"
                 title="Clear log history"
               >
-                <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <Trash2 className="w-3.5 h-3.5" />
               </button>
             )}
             <button
               onClick={onClose}
-              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
         {/* Terminal Logs List */}
-        <div className="flex-1 overflow-y-auto space-y-2 sm:space-y-2.5 pr-1 font-mono text-xs custom-scrollbar max-h-[300px] sm:max-h-[380px]">
+        <div className="flex-1 overflow-y-auto space-y-2 pr-1 font-mono text-xs custom-scrollbar max-h-[300px] sm:max-h-[380px]">
           {history.length === 0 ? (
-            <div className="h-48 flex flex-col items-center justify-center text-slate-500 space-y-2">
-              <Activity className="w-8 h-8 text-slate-700 animate-pulse" />
+            <div className="h-44 flex flex-col items-center justify-center text-slate-500 space-y-2">
+              <Activity className="w-7 h-7 text-slate-700" />
               <span>No gesture activities recorded yet.</span>
             </div>
           ) : (
             history.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-3 rounded-2xl bg-slate-950/80 border border-slate-800/90 hover:border-emerald-500/40 transition group"
+                className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 hover:border-slate-700 transition"
               >
-                <div className="flex items-center space-x-3">
-                  <span className="text-xl group-hover:scale-125 transition-transform">{item.gesture}</span>
+                <div className="flex items-center space-x-2.5">
+                  <span className="text-lg">{item.gesture}</span>
                   <div className="flex flex-col">
-                    <span className="font-bold text-slate-200 font-sans">{item.action}</span>
+                    <span className="font-semibold text-slate-200 font-sans">{item.action}</span>
                     <span className="text-[10px] text-slate-500">
-                      State Context: <span className="text-cyan-400">{item.context}</span>
+                      State Context: <span className="text-blue-400">{item.context}</span>
                     </span>
                   </div>
                 </div>
-                <span className="text-[11px] text-slate-500 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                <span className="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
                   {item.timestamp}
                 </span>
               </div>

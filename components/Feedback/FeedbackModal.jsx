@@ -73,38 +73,38 @@ export default function FeedbackModal({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-slate-900/95 border-2 border-cyan-500/40 p-5 sm:p-8 rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col space-y-4 sm:space-y-5 transform animate-in zoom-in-95 duration-200"
+        className="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col space-y-4 transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/10">
-              <MessageSquare className="w-5 h-5" />
+        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+              <MessageSquare className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-slate-100 tracking-tight flex items-center space-x-2">
+              <h3 className="text-sm font-bold text-slate-100 tracking-tight flex items-center space-x-1.5">
                 <span>Share Feedback</span>
-                <Sparkles className="w-4 h-4 text-cyan-400" />
+                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
               </h3>
-              <p className="text-xs text-slate-400">Help us improve GestureFlow!</p>
+              <p className="text-[11px] text-slate-400">Help us improve GestureFlow!</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {isSubmitted ? (
           /* Submission Success Card */
-          <div className="py-8 text-center space-y-3 animate-in zoom-in-95 duration-300">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 mx-auto shadow-xl shadow-emerald-500/20">
-              <CheckCircle2 className="w-10 h-10 animate-bounce" />
+          <div className="py-6 text-center space-y-3 animate-in zoom-in-95 duration-300">
+            <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
+              <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-bold text-slate-100">Thank You for Your Feedback!</h4>
+            <h4 className="text-base font-bold text-slate-100">Thank You for Your Feedback!</h4>
             <p className="text-xs text-slate-400 max-w-xs mx-auto">
               Your thoughts help make GestureFlow faster, smoother, and more intuitive for everyone.
             </p>
@@ -114,21 +114,21 @@ export default function FeedbackModal({ isOpen, onClose }) {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Star Rating */}
             <div className="space-y-1.5 text-center">
-              <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+              <label className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                 HOW WAS YOUR EXPERIENCE?
               </label>
-              <div className="flex items-center justify-center space-x-2 pt-1">
+              <div className="flex items-center justify-center space-x-2 pt-0.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
                     type="button"
                     onClick={() => setRating(star)}
-                    className="p-1 transition-transform hover:scale-125 focus:outline-none"
+                    className="p-1 focus:outline-none"
                   >
                     <Star
-                      className={`w-7 h-7 transition-colors ${
+                      className={`w-6 h-6 transition-colors ${
                         star <= rating
-                          ? 'text-amber-400 fill-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]'
+                          ? 'text-amber-400 fill-amber-400'
                           : 'text-slate-700 hover:text-slate-500'
                       }`}
                     />
@@ -139,7 +139,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
 
             {/* Category Selector */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+              <label className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                 CATEGORY
               </label>
               <div className="flex flex-wrap gap-1.5">
@@ -148,10 +148,10 @@ export default function FeedbackModal({ isOpen, onClose }) {
                     key={cat.id}
                     type="button"
                     onClick={() => setCategory(cat.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                    className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       category === cat.id
-                        ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20 scale-105'
-                        : 'bg-slate-950 text-slate-400 border border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                        ? 'bg-blue-600 text-white font-medium'
+                        : 'bg-slate-950 text-slate-400 border border-slate-800/80 hover:border-slate-700 hover:text-slate-200'
                     }`}
                   >
                     {cat.label}
@@ -162,7 +162,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
 
             {/* Feedback Message */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+              <label className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                 YOUR FEEDBACK / SUGGESTION
               </label>
               <textarea
@@ -171,15 +171,15 @@ export default function FeedbackModal({ isOpen, onClose }) {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="Tell us what you liked, or what we can improve..."
-                className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-400 rounded-2xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none transition-colors resize-none"
+                className="w-full bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-lg p-2.5 text-xs text-slate-200 placeholder-slate-600 focus:outline-none transition-colors resize-none"
               />
             </div>
 
             {/* Required Email */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center justify-between">
+              <label className="text-[11px] font-mono text-slate-400 uppercase tracking-wider flex items-center justify-between">
                 <span>YOUR EMAIL (REQUIRED)</span>
-                <span className="text-[10px] text-cyan-400 font-normal">A copy will be sent to your inbox</span>
+                <span className="text-[10px] text-slate-400 font-normal">A copy will be sent to your inbox</span>
               </label>
               <input
                 type="email"
@@ -187,7 +187,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-400 rounded-xl px-3 py-2 text-xs text-slate-200 placeholder-slate-600 focus:outline-none transition-colors"
+                className="w-full bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-600 focus:outline-none transition-colors"
               />
             </div>
 
@@ -195,7 +195,7 @@ export default function FeedbackModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={!comment.trim() || !email.trim() || !email.includes('@') || isSending}
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 disabled:opacity-40 disabled:cursor-not-allowed text-slate-950 font-extrabold text-xs shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center space-x-2"
+              className="w-full py-2.5 sm:py-3 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium text-xs transition flex items-center justify-center space-x-2"
             >
               {isSending ? (
                 <>

@@ -46,49 +46,46 @@ export default function OpeningWorkspaceModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="relative bg-slate-900/95 border-2 border-cyan-500/50 p-5 sm:p-8 rounded-3xl shadow-2xl shadow-cyan-500/20 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar text-center flex flex-col items-center space-y-5 sm:space-y-6 transform animate-in zoom-in-95 duration-200">
-        {/* Glow Ring */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-
+      <div className="relative bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-xl max-w-md w-full text-center flex flex-col items-center space-y-5 sm:space-y-6">
         {/* Top Header Tag */}
-        <div className="flex items-center space-x-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono font-semibold text-cyan-400">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
+        <div className="flex items-center space-x-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-blue-400">
+          <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-spin" />
           <span>INITIALIZING WORKSPACE</span>
         </div>
 
         {/* Animated Central Loader Icon */}
-        <div className="relative w-24 h-24 flex items-center justify-center rounded-3xl bg-slate-950 border-2 border-cyan-500/40 shadow-inner shadow-cyan-500/20">
+        <div className="relative w-20 h-20 flex items-center justify-center rounded-xl bg-slate-950 border border-slate-800">
           {progress < 100 ? (
-            <Loader2 className="w-12 h-12 text-cyan-400 animate-spin" />
+            <Loader2 className="w-10 h-10 text-blue-400 animate-spin" />
           ) : (
-            <CheckCircle2 className="w-12 h-12 text-emerald-400 animate-bounce" />
+            <CheckCircle2 className="w-10 h-10 text-emerald-400" />
           )}
         </div>
 
         {/* Title & Status Message */}
-        <div className="space-y-2">
-          <h3 className="text-xl font-extrabold text-slate-100 tracking-tight">
+        <div className="space-y-1.5">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-100 tracking-tight">
             {progress < 100 ? 'Opening GestureFlow Workspace...' : 'Workspace Ready!'}
           </h3>
-          <p className="text-xs font-mono text-cyan-400 h-6 flex items-center justify-center">
+          <p className="text-xs font-mono text-blue-400 h-5 flex items-center justify-center">
             {statusText}
           </p>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full space-y-2">
-          <div className="w-full h-2.5 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+        <div className="w-full space-y-1.5">
+          <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-500 transition-all duration-300 ease-out shadow-lg shadow-cyan-500/50"
+              className="h-full rounded-full bg-blue-600 transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
           <div className="flex items-center justify-between text-[11px] font-mono text-slate-500">
             <span className="flex items-center space-x-1">
-              <Cpu className="w-3 h-3 text-cyan-400" />
+              <Cpu className="w-3 h-3 text-blue-400" />
               <span>WASM &amp; TFJS ENGINE</span>
             </span>
-            <span className="font-bold text-cyan-400">{progress}%</span>
+            <span className="font-bold text-blue-400">{progress}%</span>
           </div>
         </div>
 
