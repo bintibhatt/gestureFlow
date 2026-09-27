@@ -22,13 +22,13 @@ const PhotoGallery = React.memo(function PhotoGallery({
   }
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800/80 p-3.5 sm:p-4 rounded-xl flex flex-col space-y-2.5">
-      <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+    <div className="bg-zinc-900/90 border border-zinc-800/80 p-3.5 sm:p-4 rounded-xl flex flex-col space-y-2.5 shadow-sm">
+      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2.5">
         <div className="flex items-center space-x-2">
-          <Images className="w-4 h-4 text-blue-400" />
-          <h3 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">PHOTO GALLERY</h3>
+          <Images className="w-4 h-4 text-zinc-400" />
+          <h3 className="text-xs font-semibold text-zinc-200 uppercase tracking-wider">PHOTO GALLERY</h3>
         </div>
-        <span className="text-[10px] sm:text-[11px] font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-md">
+        <span className="text-[10px] sm:text-[11px] font-mono text-zinc-300 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded-md">
           {selectedIndex + 1} / {photos.length} {photos.length === 1 ? 'PHOTO' : 'PHOTOS'}
         </span>
       </div>
@@ -44,8 +44,8 @@ const PhotoGallery = React.memo(function PhotoGallery({
               onClick={() => onSelectPhoto && onSelectPhoto(idx, photo)}
               className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border transition-all group ${
                 isSelected
-                  ? 'border-blue-500 ring-1 ring-blue-500/40'
-                  : 'border-slate-800 hover:border-slate-600 opacity-70 hover:opacity-100'
+                  ? 'border-zinc-400 ring-1 ring-zinc-400/40 opacity-100'
+                  : 'border-zinc-800 hover:border-zinc-700 opacity-60 hover:opacity-100'
               }`}
             >
               <img
@@ -55,8 +55,8 @@ const PhotoGallery = React.memo(function PhotoGallery({
               />
 
               {isSelected && (
-                <div className="absolute top-1 right-1 bg-blue-600 rounded p-0.5 text-white">
-                  <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                <div className="absolute top-1 right-1 bg-zinc-900 border border-zinc-700 rounded p-0.5 text-zinc-100">
+                  <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-zinc-200" />
                 </div>
               )}
 
@@ -66,7 +66,7 @@ const PhotoGallery = React.memo(function PhotoGallery({
                   if (onRequestDelete) onRequestDelete(photo);
                 }}
                 title="Delete Photo"
-                className="absolute bottom-1 right-1 p-1 bg-rose-600 hover:bg-rose-500 text-white rounded opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition"
+                className="absolute bottom-1 right-1 p-1 bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-800/80 rounded opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition"
               >
                 <Trash2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               </button>

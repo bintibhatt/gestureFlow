@@ -17,20 +17,20 @@ const NavigationMenu = React.memo(function NavigationMenu({
   onCloseMenu,
 }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl shadow-xl flex flex-col space-y-4 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95 duration-200">
-      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+    <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-xl shadow-xl flex flex-col space-y-4 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95 duration-200">
+      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3">
         <div className="flex items-center space-x-2.5">
-          <Menu className="w-4 h-4 text-blue-400" />
-          <h3 className="text-xs sm:text-sm font-bold text-slate-100 tracking-wider">NAVIGATION MENU</h3>
+          <Menu className="w-4 h-4 text-zinc-400" />
+          <h3 className="text-xs sm:text-sm font-bold text-zinc-100 tracking-wider">NAVIGATION MENU</h3>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="text-[10px] font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-md">
+          <span className="text-[10px] font-mono text-zinc-300 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded-md">
             GESTURE CONTROLLED
           </span>
           {onCloseMenu && (
             <button
               onClick={onCloseMenu}
-              className="p-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
+              className="p-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition"
               title="Close Menu (✋ Palm)"
             >
               <X className="w-4 h-4" />
@@ -50,32 +50,32 @@ const NavigationMenu = React.memo(function NavigationMenu({
               onClick={() => onSelectOption && onSelectOption(idx)}
               className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
                 isSelected
-                  ? 'bg-blue-500/10 border-blue-500/40 text-blue-300'
-                  : 'bg-slate-950/40 border-slate-800/80 hover:border-slate-700 text-slate-400'
+                  ? 'bg-zinc-800 border-zinc-700 text-zinc-100 shadow-sm'
+                  : 'bg-zinc-950/40 border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900 text-zinc-400'
               }`}
             >
               <div className="flex items-center space-x-2.5">
                 <div
                   className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center font-mono text-xs font-bold transition-colors ${
                     isSelected
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-800 text-slate-400'
+                      ? 'bg-zinc-100 text-zinc-950 font-semibold'
+                      : 'bg-zinc-800 text-zinc-400'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
                 </div>
-                <span className={`text-xs sm:text-sm font-medium ${isSelected ? 'text-slate-100 font-semibold' : 'text-slate-300'}`}>
+                <span className={`text-xs sm:text-sm font-medium ${isSelected ? 'text-zinc-100 font-semibold' : 'text-zinc-300'}`}>
                   {option}
                 </span>
               </div>
 
-              {isSelected && <Check className="w-4 h-4 text-blue-400" />}
+              {isSelected && <Check className="w-4 h-4 text-zinc-300" />}
             </div>
           );
         })}
       </div>
 
-      <div className="pt-2 text-center text-[10px] sm:text-[11px] font-mono text-slate-500 flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 border-t border-slate-800/80">
+      <div className="pt-2 text-center text-[10px] sm:text-[11px] font-mono text-zinc-500 flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 border-t border-zinc-800/80">
         <span>☝ Point Up: Prev</span>
         <span className="hidden xs:inline">•</span>
         <span>👇 Point Down: Next</span>

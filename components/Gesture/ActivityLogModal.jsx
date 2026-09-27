@@ -27,19 +27,19 @@ export default function ActivityLogModal({ isOpen, onClose, history = [], onClea
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
+        <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3.5">
           <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 shrink-0">
               <Terminal className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-xs sm:text-sm font-bold text-slate-100 tracking-tight flex flex-wrap items-center gap-1.5">
+              <h3 className="text-xs sm:text-sm font-bold text-zinc-100 tracking-tight flex flex-wrap items-center gap-1.5">
                 <span>Gesture Activity Logs</span>
-                <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+                <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-300 border border-zinc-700 font-medium">
                   {history.length} EVENTS
                 </span>
               </h3>
-              <p className="text-[10px] sm:text-xs text-slate-400">Real-time log stream of confirmed gesture triggers</p>
+              <p className="text-[10px] sm:text-xs text-zinc-400">Real-time log stream of confirmed gesture triggers</p>
             </div>
           </div>
 
