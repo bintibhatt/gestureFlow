@@ -17,20 +17,20 @@ const NavigationMenu = React.memo(function NavigationMenu({
   onCloseMenu,
 }) {
   return (
-    <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-xl shadow-xl flex flex-col space-y-4 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95 duration-200">
-      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+    <div className="bg-slate-900/95 border border-slate-800 p-5 rounded-xl shadow-2xl flex flex-col space-y-4 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95 duration-200">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
         <div className="flex items-center space-x-2.5">
-          <Menu className="w-4 h-4 text-zinc-400" />
-          <h3 className="text-xs sm:text-sm font-bold text-zinc-100 tracking-wider">NAVIGATION MENU</h3>
+          <Menu className="w-4 h-4 text-sky-400" />
+          <h3 className="text-xs sm:text-sm font-bold text-slate-100 tracking-wider">NAVIGATION MENU</h3>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="text-[10px] font-mono text-zinc-300 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded-md">
+          <span className="text-[10px] font-mono text-sky-300 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-md">
             GESTURE CONTROLLED
           </span>
           {onCloseMenu && (
             <button
               onClick={onCloseMenu}
-              className="p-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition"
+              className="p-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition"
               title="Close Menu (✋ Palm)"
             >
               <X className="w-4 h-4" />
@@ -50,26 +50,26 @@ const NavigationMenu = React.memo(function NavigationMenu({
               onClick={() => onSelectOption && onSelectOption(idx)}
               className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
                 isSelected
-                  ? 'bg-zinc-800 border-zinc-700 text-zinc-100 shadow-sm'
-                  : 'bg-zinc-950/40 border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900 text-zinc-400'
+                  ? 'bg-sky-500/10 border-sky-500/30 text-sky-300 font-semibold shadow-sm'
+                  : 'bg-slate-950/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900 text-slate-400'
               }`}
             >
               <div className="flex items-center space-x-2.5">
                 <div
                   className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md flex items-center justify-center font-mono text-xs font-bold transition-colors ${
                     isSelected
-                      ? 'bg-zinc-100 text-zinc-950 font-semibold'
-                      : 'bg-zinc-800 text-zinc-400'
+                      ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-sm'
+                      : 'bg-slate-800 text-slate-400'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
                 </div>
-                <span className={`text-xs sm:text-sm font-medium ${isSelected ? 'text-zinc-100 font-semibold' : 'text-zinc-300'}`}>
+                <span className={`text-xs sm:text-sm font-medium ${isSelected ? 'text-slate-100 font-semibold' : 'text-slate-300'}`}>
                   {option}
                 </span>
               </div>
 
-              {isSelected && <Check className="w-4 h-4 text-zinc-300" />}
+              {isSelected && <Check className="w-4 h-4 text-sky-400" />}
             </div>
           );
         })}

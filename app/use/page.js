@@ -211,26 +211,26 @@ export default function GestureAppPage() {
   }, [appState.currentState]);
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-zinc-800 selection:text-white">
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-sky-500 selection:text-white">
       {/* Top Header Navbar */}
-      <header className="sticky top-0 z-40 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-800/80 px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80 px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-100 transition bg-zinc-900/90 px-2.5 py-1.5 rounded-lg border border-zinc-800"
+            className="flex items-center space-x-1.5 text-xs font-medium text-slate-400 hover:text-slate-100 transition bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-800"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="hidden xs:inline">Home</span>
           </Link>
 
           <div className="flex items-center space-x-2 sm:space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
-              <Sparkles className="w-4 h-4 text-zinc-300" />
+            <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
+              <Sparkles className="w-4 h-4 text-sky-400" />
             </div>
             <div>
-              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-zinc-100 flex items-center space-x-1.5 sm:space-x-2">
+              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-slate-100 flex items-center space-x-1.5 sm:space-x-2">
                 <span>GestureFlow</span>
-                <span className="hidden sm:inline text-[10px] font-mono font-normal px-2 py-0.5 rounded-md bg-zinc-900 text-zinc-400 border border-zinc-800">
+                <span className="hidden sm:inline text-[10px] font-mono font-normal px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-300 border border-sky-500/20">
                   V2 Interactive
                 </span>
               </h1>
@@ -242,22 +242,22 @@ export default function GestureAppPage() {
         <div className="flex items-center space-x-1.5 sm:space-x-2.5 overflow-x-auto max-w-full py-0.5 custom-scrollbar">
           <button
             onClick={() => setIsGuideModalOpen(true)}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition shrink-0"
+            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 text-violet-300 text-xs font-medium transition shrink-0"
           >
-            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-400" />
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet-400" />
             <span className="hidden md:inline">Gesture Guide</span>
             <span className="md:hidden">Guide</span>
           </button>
 
           <button
             onClick={() => setIsLogModalOpen(true)}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition relative shrink-0"
+            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-300 text-xs font-medium transition relative shrink-0"
           >
-            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-400" />
+            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
             <span className="hidden md:inline">Activity Logs</span>
             <span className="md:hidden">Logs</span>
             {appState.actionHistory.length > 0 && (
-              <span className="px-1.5 py-0.5 rounded-md bg-zinc-800 text-zinc-300 border border-zinc-700 font-mono text-[10px] font-semibold">
+              <span className="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-semibold">
                 {appState.actionHistory.length}
               </span>
             )}
@@ -265,28 +265,28 @@ export default function GestureAppPage() {
 
           <button
             onClick={() => setIsFeedbackModalOpen(true)}
-            className="flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition shrink-0"
+            className="flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-medium transition shrink-0"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-zinc-400" />
+            <MessageSquare className="w-3.5 h-3.5 text-sky-400" />
             <span className="hidden sm:inline">Feedback</span>
           </button>
 
           <button
             onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
-            className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition shrink-0"
+            className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-medium transition shrink-0"
           >
-            <Menu className="w-4 h-4 text-zinc-400" />
+            <Menu className="w-4 h-4 text-sky-400" />
             <span>Actions Menu</span>
-            <span className="text-[10px] font-mono text-zinc-500">👌</span>
+            <span className="text-[10px] font-mono text-slate-400">👌</span>
           </button>
 
-          <div className="flex items-center space-x-1.5 bg-zinc-900 px-2.5 sm:px-3 py-1.5 rounded-lg border border-zinc-800 text-[11px] sm:text-xs font-mono shrink-0">
-            <span className="text-zinc-500 hidden xs:inline">MODE:</span>
-            <span className="font-semibold text-zinc-200">{appState.currentState}</span>
+          <div className="flex items-center space-x-1.5 bg-slate-900 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] sm:text-xs font-mono shrink-0">
+            <span className="text-slate-500 hidden xs:inline">MODE:</span>
+            <span className="font-semibold text-sky-400">{appState.currentState}</span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-2 bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800 text-xs font-mono shrink-0">
-            <span className="text-zinc-500">ENGINE:</span>
+          <div className="hidden sm:flex items-center space-x-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-mono shrink-0">
+            <span className="text-slate-500">ENGINE:</span>
             <span className={isModelLoading ? 'text-amber-400 font-semibold' : 'text-emerald-400 font-semibold'}>
               {isModelLoading ? 'LOADING...' : 'READY'}
             </span>
@@ -297,26 +297,26 @@ export default function GestureAppPage() {
       {/* Camera Consent Splash Screen */}
       {!hasStartedCamera ? (
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6">
-          <div className="max-w-lg w-full bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-6 sm:p-8 text-center space-y-4 sm:space-y-6 shadow-xl">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mx-auto text-zinc-200">
+          <div className="max-w-lg w-full bg-slate-900/90 border border-slate-800 rounded-xl p-6 sm:p-8 text-center space-y-4 sm:space-y-6 shadow-2xl">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center mx-auto text-sky-400 shadow-md">
               <Video className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
 
             <div className="space-y-1.5">
-              <h2 className="text-xl sm:text-2xl font-bold text-zinc-100 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
                 Ready to interact touch-free?
               </h2>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
                 GestureFlow uses your webcam to recognize hand gestures locally in your browser. No video or photos are ever sent to a server.
               </p>
             </div>
 
-            <div className="bg-zinc-950/80 rounded-lg p-3.5 border border-zinc-800 text-left space-y-2 text-xs text-zinc-300">
+            <div className="bg-slate-950/80 rounded-lg p-3.5 border border-slate-800 text-left space-y-2 text-xs text-slate-300">
               <div className="flex items-center space-x-2 text-emerald-400 font-semibold">
                 <Shield className="w-4 h-4 shrink-0" />
                 <span>100% Client-Side Privacy Guarantee</span>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-1 text-[11px] sm:text-xs">
+              <ul className="list-disc list-inside space-y-1 text-slate-400 pl-1 text-[11px] sm:text-xs">
                 <li>Webcam stream stays in browser memory only</li>
                 <li>Computer vision &amp; inference run locally via WebAssembly/WebGL</li>
                 <li>Photos are stored in your private local IndexedDB</li>
@@ -325,7 +325,7 @@ export default function GestureAppPage() {
 
             <button
               onClick={handleStartCamera}
-              className="w-full sm:w-auto px-6 py-3 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2 mx-auto shadow-md"
+              className="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2 mx-auto shadow-lg shadow-sky-500/20"
             >
               <Power className="w-4 h-4" />
               <span>Start Camera &amp; Enter Workspace</span>

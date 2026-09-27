@@ -9,8 +9,8 @@ export default function GestureFlowMark({ className = 'w-9 h-9' }) {
     >
       <defs>
         <linearGradient id="gestureFlowGradient" x1="10" y1="10" x2="54" y2="54" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F4F4F5" />
-          <stop offset="1" stopColor="#71717A" />
+          <stop stopColor="#38BDF8" />
+          <stop offset="1" stopColor="#818CF8" />
         </linearGradient>
       </defs>
       <path
@@ -20,9 +20,9 @@ export default function GestureFlowMark({ className = 'w-9 h-9' }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M13 22.5c3.5-7 9.2-10.8 16-12" stroke="#E4E4E7" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-      <path d="M10 31.5c1.4-2.4 2.5-3.9 4.2-5.4" stroke="#A1A1AA" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
-      <path d="M41 51c5.2-1.4 9.4-4.7 12-9.3" stroke="#71717A" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
+      <path d="M13 22.5c3.5-7 9.2-10.8 16-12" stroke="#38BDF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+      <path d="M10 31.5c1.4-2.4 2.5-3.9 4.2-5.4" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+      <path d="M41 51c5.2-1.4 9.4-4.7 12-9.3" stroke="#818CF8" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
     </svg>
   );
 }

@@ -179,8 +179,8 @@ const CameraFeed = React.memo(function CameraFeed({
       if (!keypoints || keypoints.length === 0) return;
 
       // Draw skeleton lines
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(244, 244, 245, 0.65)'; // Minimal Silver
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)'; // Glowing Sky Blue
 
       HAND_CONNECTIONS.forEach(([startIdx, endIdx]) => {
         const p1 = keypoints[startIdx];
@@ -196,11 +196,11 @@ const CameraFeed = React.memo(function CameraFeed({
       // Draw keypoint nodes
       keypoints.forEach((kp, idx) => {
         ctx.beginPath();
-        const radius = idx % 4 === 0 ? 3.5 : 2;
+        const radius = idx % 4 === 0 ? 4 : 2.5;
         ctx.arc(kp.x, kp.y, radius, 0, 2 * Math.PI);
-        ctx.fillStyle = idx % 4 === 0 ? '#f4f4f5' : '#a1a1aa';
+        ctx.fillStyle = idx % 4 === 0 ? '#38bdf8' : '#818cf8'; // Sky fingertips, indigo joints
         ctx.fill();
-        ctx.strokeStyle = '#18181b';
+        ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1;
         ctx.stroke();
       });
@@ -208,14 +208,14 @@ const CameraFeed = React.memo(function CameraFeed({
   }, [handsData, showLandmarks]);
 
   return (
-    <div className={`relative w-full ${aspectRatioClass} bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800/80 flex items-center justify-center group transition-all duration-300`}>
+    <div className={`relative w-full ${aspectRatioClass} bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 flex items-center justify-center group transition-all duration-300`}>
       {!isCameraActive ? (
         <div className="flex flex-col items-center justify-center text-center p-4 space-y-2">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500">
-            <CameraOff className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-400" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
+            <CameraOff className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400" />
           </div>
-          <p className="text-zinc-200 font-semibold text-xs">Camera Feed Off</p>
-          <p className="text-zinc-400 text-[11px] max-w-[200px]">Click "Enable Camera" above to activate gesture control.</p>
+          <p className="text-slate-200 font-semibold text-xs">Camera Feed Off</p>
+          <p className="text-slate-400 text-[11px] max-w-[200px]">Click "Enable Camera" above to activate gesture control.</p>
         </div>
       ) : error ? (
         <div className="text-center p-4 sm:p-6 space-y-3 max-w-md">
@@ -224,14 +224,14 @@ const CameraFeed = React.memo(function CameraFeed({
           <div className="flex items-center justify-center space-x-2 pt-2">
             <button
               onClick={() => setRetryCount((prev) => prev + 1)}
-              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs rounded-lg transition flex items-center space-x-1.5"
+              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-xs rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-sky-500/20"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Retry Camera</span>
             </button>
             <button
               onClick={() => window.location.reload()}
-              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium text-xs rounded-lg transition"
+              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-lg transition"
             >
               Reload Page
             </button>

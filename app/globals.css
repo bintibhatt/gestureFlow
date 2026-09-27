@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background-color: #09090b;
-    color: #f4f4f5;
+    background-color: #0b0f19;
+    color: #f8fafc;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     overflow-x: hidden;
   }
@@ -18,25 +18,29 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(24, 24, 27, 0.6);
+  background: rgba(15, 23, 42, 0.6);
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(113, 113, 122, 0.3);
+  background: rgba(148, 163, 184, 0.3);
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(113, 113, 122, 0.5);
+  background: rgba(148, 163, 184, 0.5);
 }
 
-/* Subtle Shadows */
-.glow-cyan {
-  box-shadow: 0 4px 20px -2px rgba(9, 9, 11, 0.7);
+/* Multi-Color Subtle Glow Utilities */
+.glow-sky {
+  box-shadow: 0 4px 24px -2px rgba(56, 189, 248, 0.15);
 }
 
 .glow-violet {
-  box-shadow: 0 4px 20px -2px rgba(9, 9, 11, 0.7);
+  box-shadow: 0 4px 24px -2px rgba(167, 139, 250, 0.15);
+}
+
+.glow-emerald {
+  box-shadow: 0 4px 24px -2px rgba(52, 211, 153, 0.15);
 }
 
