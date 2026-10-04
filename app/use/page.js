@@ -21,9 +21,9 @@ import { loadGestureModel, loadHandDetector } from '../../lib/gesture/modelLoade
 import { GestureEngine } from '../../lib/gesture/engine';
 import { getActionForGesture, ACTION_TYPES } from '../../lib/gesture/mapping';
 import { executeAction } from '../../lib/actions';
-import { getPhotos, savePhoto } from '../../lib/storage/db';
-import { captureFrame } from '../../lib/image/processor';
-import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen, Terminal, History, Image as ImageIcon, MessageSquare } from 'lucide-react';
+import { getPhotos } from '../../lib/storage/db';
+import { Sparkles, Camera, ArrowLeft, Shield, Video, Power, Menu, BookOpen, History, MessageSquare } from 'lucide-react';
+import { useTheme } from '../../lib/theme/ThemeContext';
 
 export default function GestureAppPage() {
   const [appState, setAppState] = useState(stateMachine.getState());
@@ -41,6 +41,7 @@ export default function GestureAppPage() {
   });
   const [isModelLoading, setIsModelLoading] = useState(true);
   const [isEngineReady, setIsEngineReady] = useState(false);
+  const { themeConfig } = useTheme();
 
   // Photo Pose Countdown State
   const [poseCountdown, setPoseCountdown] = useState(null);
@@ -60,7 +61,6 @@ export default function GestureAppPage() {
       if (urlParams.get('autostart') === 'true') {
         setHasStartedCamera(true);
         setIsCameraActive(true);
-        // Silently remove ?autostart=true from browser address bar
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
@@ -205,32 +205,32 @@ export default function GestureAppPage() {
   }, [appState.currentState]);
 
   // Edit Tool selection via click fallback
-  const handleSelectEditTool = useCallback(async (idx, toolName) => {
+  const handleSelectEditTool = useCallback(async (idx) => {
     stateMachine.setState(appState.currentState, { editToolIndex: idx });
     await executeAction('EDIT_TOOL_SELECT');
   }, [appState.currentState]);
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-sky-500 selection:text-white">
+    <main className={`min-h-screen ${themeConfig.bgClass} ${themeConfig.textClass} flex flex-col transition-colors duration-300`}>
       {/* Top Header Navbar */}
-      <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80 px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <header className={`sticky top-0 z-40 backdrop-blur-md border-b px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 ${themeConfig.headerBg}`}>
         <div className="flex items-center space-x-2 sm:space-x-3">
           <Link
             href="/"
-            className="flex items-center space-x-1.5 text-xs font-medium text-slate-400 hover:text-slate-100 transition bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-800"
+            className={`flex items-center space-x-1.5 text-xs font-medium transition px-2.5 py-1.5 rounded-lg border ${themeConfig.secondaryBtn}`}
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="hidden xs:inline">Home</span>
           </Link>
 
           <div className="flex items-center space-x-2 sm:space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
-              <Sparkles className="w-4 h-4 text-sky-400" />
+            <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-700/60 flex items-center justify-center shrink-0">
+              <Sparkles className={`w-4 h-4 ${themeConfig.accentText}`} />
             </div>
             <div>
-              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-slate-100 flex items-center space-x-1.5 sm:space-x-2">
+              <h1 className="text-xs sm:text-sm font-bold tracking-tight flex items-center space-x-1.5 sm:space-x-2">
                 <span>GestureFlow</span>
-                <span className="hidden sm:inline text-[10px] font-mono font-normal px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                <span className={`hidden sm:inline text-[10px] font-mono font-normal px-2 py-0.5 rounded-md border ${themeConfig.badgeBg}`}>
                   V2 Interactive
                 </span>
               </h1>
@@ -238,26 +238,27 @@ export default function GestureAppPage() {
           </div>
         </div>
 
-        {/* Workspace Quick Menu & State Badges */}
+        {/* Workspace Quick Menu */}
         <div className="flex items-center space-x-1.5 sm:space-x-2.5 overflow-x-auto max-w-full py-0.5 custom-scrollbar">
+
           <button
             onClick={() => setIsGuideModalOpen(true)}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 text-violet-300 text-xs font-medium transition shrink-0"
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs font-medium transition shrink-0 ${themeConfig.secondaryBtn}`}
           >
-            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet-400" />
+            <BookOpen className={`w-3.5 h-3.5 ${themeConfig.accentText}`} />
             <span className="hidden md:inline">Gesture Guide</span>
             <span className="md:hidden">Guide</span>
           </button>
 
           <button
             onClick={() => setIsLogModalOpen(true)}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-300 text-xs font-medium transition relative shrink-0"
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs font-medium transition relative shrink-0 ${themeConfig.secondaryBtn}`}
           >
-            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
+            <History className={`w-3.5 h-3.5 ${themeConfig.accentText}`} />
             <span className="hidden md:inline">Activity Logs</span>
             <span className="md:hidden">Logs</span>
             {appState.actionHistory.length > 0 && (
-              <span className="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-semibold">
+              <span className={`px-1.5 py-0.5 rounded-md font-mono text-[10px] font-semibold border ${themeConfig.badgeBg}`}>
                 {appState.actionHistory.length}
               </span>
             )}
@@ -265,29 +266,29 @@ export default function GestureAppPage() {
 
           <button
             onClick={() => setIsFeedbackModalOpen(true)}
-            className="flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-medium transition shrink-0"
+            className={`flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs font-medium transition shrink-0 ${themeConfig.secondaryBtn}`}
           >
-            <MessageSquare className="w-3.5 h-3.5 text-sky-400" />
+            <MessageSquare className={`w-3.5 h-3.5 ${themeConfig.accentText}`} />
             <span className="hidden sm:inline">Feedback</span>
           </button>
 
           <button
             onClick={() => executeAction(ACTION_TYPES.OPEN_MENU)}
-            className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-medium transition shrink-0"
+            className={`hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-medium transition shrink-0 ${themeConfig.secondaryBtn}`}
           >
-            <Menu className="w-4 h-4 text-sky-400" />
+            <Menu className={`w-4 h-4 ${themeConfig.accentText}`} />
             <span>Actions Menu</span>
-            <span className="text-[10px] font-mono text-slate-400">👌</span>
+            <span className="text-[10px] font-mono opacity-80">👌</span>
           </button>
 
-          <div className="flex items-center space-x-1.5 bg-slate-900 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] sm:text-xs font-mono shrink-0">
-            <span className="text-slate-500 hidden xs:inline">MODE:</span>
-            <span className="font-semibold text-sky-400">{appState.currentState}</span>
+          <div className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-mono shrink-0 ${themeConfig.badgeBg}`}>
+            <span className="opacity-70 hidden xs:inline">MODE:</span>
+            <span className="font-semibold">{appState.currentState}</span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-mono shrink-0">
-            <span className="text-slate-500">ENGINE:</span>
-            <span className={isModelLoading ? 'text-amber-400 font-semibold' : 'text-emerald-400 font-semibold'}>
+          <div className={`hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono shrink-0 ${themeConfig.badgeBg}`}>
+            <span className="opacity-70">ENGINE:</span>
+            <span className={isModelLoading ? 'opacity-70 font-semibold' : `${themeConfig.highlightText} font-semibold`}>
               {isModelLoading ? 'LOADING...' : 'READY'}
             </span>
           </div>
@@ -297,37 +298,37 @@ export default function GestureAppPage() {
       {/* Camera Consent Splash Screen */}
       {!hasStartedCamera ? (
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6">
-          <div className="max-w-lg w-full bg-slate-900/90 border border-slate-800 rounded-xl p-6 sm:p-8 text-center space-y-4 sm:space-y-6 shadow-2xl">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center mx-auto text-sky-400 shadow-md">
-              <Video className="w-7 h-7 sm:w-8 sm:h-8" />
+          <div className={`max-w-md w-full border rounded-2xl p-6 text-center space-y-4 shadow-xl ${themeConfig.cardBg}`}>
+            <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/60 flex items-center justify-center mx-auto shadow-sm">
+              <Video className={`w-6 h-6 ${themeConfig.accentText}`} />
             </div>
 
-            <div className="space-y-1.5">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
+            <div className="space-y-1">
+              <h2 className="text-lg font-bold tracking-tight">
                 Ready to interact touch-free?
               </h2>
-              <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs opacity-70 max-w-sm mx-auto leading-relaxed">
                 GestureFlow uses your webcam to recognize hand gestures locally in your browser. No video or photos are ever sent to a server.
               </p>
             </div>
 
-            <div className="bg-slate-950/80 rounded-lg p-3.5 border border-slate-800 text-left space-y-2 text-xs text-slate-300">
-              <div className="flex items-center space-x-2 text-emerald-400 font-semibold">
-                <Shield className="w-4 h-4 shrink-0" />
+            <div className={`rounded-xl p-3 border text-left space-y-1.5 text-xs ${themeConfig.badgeBg}`}>
+              <div className="flex items-center space-x-2 font-semibold">
+                <Shield className={`w-3.5 h-3.5 ${themeConfig.accentText} shrink-0`} />
                 <span>100% Client-Side Privacy Guarantee</span>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-slate-400 pl-1 text-[11px] sm:text-xs">
+              <ul className="list-disc list-inside space-y-0.5 opacity-80 pl-1 text-[11px]">
                 <li>Webcam stream stays in browser memory only</li>
-                <li>Computer vision &amp; inference run locally via WebAssembly/WebGL</li>
+                <li>Computer vision &amp; inference run locally via WASM/WebGL</li>
                 <li>Photos are stored in your private local IndexedDB</li>
               </ul>
             </div>
 
             <button
               onClick={handleStartCamera}
-              className="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2 mx-auto shadow-lg shadow-sky-500/20"
+              className={`w-full sm:w-auto px-5 py-2.5 rounded-lg font-semibold text-xs transition flex items-center justify-center space-x-2 mx-auto shadow-md ${themeConfig.primaryBtn}`}
             >
-              <Power className="w-4 h-4" />
+              <Power className="w-3.5 h-3.5" />
               <span>Start Camera &amp; Enter Workspace</span>
             </button>
           </div>
@@ -337,10 +338,10 @@ export default function GestureAppPage() {
         <div className="flex-1 p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
           {/* Left Column: Camera Feed & Real-Time Gesture HUD (5 cols) */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6 flex flex-col">
-            <div className="space-y-3 bg-zinc-900/90 border border-zinc-800/80 p-3.5 sm:p-4 rounded-xl shadow-sm">
+            <div className={`space-y-3 border p-3.5 sm:p-4 rounded-xl shadow-xl ${themeConfig.cardBg}`}>
               <div className="flex flex-wrap items-center justify-between gap-2 pb-1">
-                <span className="text-xs font-semibold text-zinc-300 uppercase tracking-wider flex items-center space-x-2">
-                  <Camera className="w-4 h-4 text-zinc-400" />
+                <span className="text-xs font-bold uppercase tracking-wider flex items-center space-x-2">
+                  <Camera className={`w-4 h-4 ${themeConfig.accentText}`} />
                   <span>Webcam Feed</span>
                 </span>
                 <CameraControls
@@ -395,7 +396,7 @@ export default function GestureAppPage() {
       {/* Navigation Menu Modal */}
       {appState.currentState === STATES.MENU && (
         <div
-          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => stateMachine.transitionTo(STATES.HOME)}
         >
           <div onClick={(e) => e.stopPropagation()}>

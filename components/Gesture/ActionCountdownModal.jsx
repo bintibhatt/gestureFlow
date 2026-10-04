@@ -35,13 +35,13 @@ export default function ActionCountdownModal({
   return (
     <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center p-4">
       {/* Dimmed backdrop blur overlay */}
-      <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity duration-300 animate-fade-in" />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-fade-in" />
 
       {/* Main Glassmorphism Modal Box */}
-      <div className="relative z-10 bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl shadow-xl max-w-sm w-full text-center flex flex-col items-center space-y-4">
+      <div className="relative z-10 bg-zinc-950 border border-zinc-800 p-5 sm:p-6 rounded-2xl shadow-xl max-w-sm w-full text-center flex flex-col items-center space-y-4">
         {/* Top Header Tag */}
-        <div className="flex items-center space-x-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-blue-400">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+        <div className="flex items-center space-x-2 px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono font-medium text-zinc-300">
+          <Sparkles className="w-3.5 h-3.5 text-zinc-400" />
           <span>GESTURE CONFIRMATION</span>
         </div>
 
@@ -53,7 +53,7 @@ export default function ActionCountdownModal({
               cx="45"
               cy="45"
               r={radius}
-              className="stroke-slate-800"
+              className="stroke-zinc-900"
               strokeWidth="5"
               fill="transparent"
             />
@@ -65,7 +65,7 @@ export default function ActionCountdownModal({
               className={`transition-all duration-150 ease-linear ${
                 isExecuting
                   ? 'stroke-emerald-400'
-                  : 'stroke-blue-500'
+                  : 'stroke-zinc-200'
               }`}
               strokeWidth="5"
               strokeDasharray={circumference}
@@ -82,7 +82,7 @@ export default function ActionCountdownModal({
             ) : (
               <>
                 <span className="text-3xl">{emoji}</span>
-                <span className="text-xs font-mono font-bold text-blue-400 mt-0.5">
+                <span className="text-xs font-mono font-bold text-zinc-200 mt-0.5">
                   {countdownSeconds}s
                 </span>
               </>
@@ -92,10 +92,10 @@ export default function ActionCountdownModal({
 
         {/* Action Title & Subtext */}
         <div className="space-y-1">
-          <h3 className="text-base font-bold text-slate-100 tracking-tight">
+          <h3 className="text-base font-bold text-zinc-100 tracking-tight">
             {isExecuting ? 'Action Executed!' : `Performing: ${actionLabel}`}
           </h3>
-          <p className="text-xs text-slate-400 leading-relaxed max-w-[240px] mx-auto">
+          <p className="text-xs text-zinc-400 leading-relaxed max-w-[240px] mx-auto">
             {isExecuting
               ? 'Gesture action successfully performed.'
               : 'Hold hand steady for 2 seconds to confirm or lower hand to cancel.'}
@@ -104,22 +104,22 @@ export default function ActionCountdownModal({
 
         {/* Progress Bar & Status Pill */}
         <div className="w-full space-y-1.5 pt-1">
-          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
             <div
               className={`h-full transition-all duration-150 ${
                 isExecuting
                   ? 'bg-emerald-400'
-                  : 'bg-blue-600'
+                  : 'bg-zinc-200'
               }`}
               style={{ width: `${Math.round(countdownProgress * 100)}%` }}
             />
           </div>
-          <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 px-1">
-            <span className="flex items-center space-x-1 text-slate-500">
-              <Timer className="w-3 h-3 text-blue-400" />
+          <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-1">
+            <span className="flex items-center space-x-1 text-zinc-500">
+              <Timer className="w-3 h-3 text-zinc-400" />
               <span>2-SEC HOLD</span>
             </span>
-            <span className={isExecuting ? 'text-emerald-400 font-bold' : 'text-blue-400 font-bold'}>
+            <span className={isExecuting ? 'text-emerald-400 font-bold' : 'text-zinc-200 font-bold'}>
               {Math.round(countdownProgress * 100)}%
             </span>
           </div>
@@ -128,3 +128,5 @@ export default function ActionCountdownModal({
     </div>
   );
 }
+
+

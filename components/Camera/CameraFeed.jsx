@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Camera, CameraOff, RefreshCw, Eye, EyeOff } from 'lucide-react';
+import { CameraOff, RefreshCw } from 'lucide-react';
+import { useTheme } from '../../lib/theme/ThemeContext';
 
 const HAND_CONNECTIONS = [
   [0, 1], [1, 2], [2, 3], [3, 4], // Thumb
@@ -24,6 +25,7 @@ const CameraFeed = React.memo(function CameraFeed({
   const [isInitializing, setIsInitializing] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
   const [aspectRatioClass, setAspectRatioClass] = useState('aspect-[4/3] sm:aspect-video');
+  const { themeConfig } = useTheme();
 
   useEffect(() => {
     let currentStream = null;
@@ -91,12 +93,9 @@ const CameraFeed = React.memo(function CameraFeed({
               video.width = video.videoWidth;
               video.height = video.videoHeight;
 
-              // Dynamically adjust container aspect ratio based on camera stream orientation
               if (video.videoHeight > video.videoWidth) {
-                // Mobile Portrait webcam stream
                 setAspectRatioClass('aspect-[3/4] max-h-[380px] sm:max-h-[420px]');
               } else {
-                // Desktop / Laptop / Landscape webcam stream
                 setAspectRatioClass('aspect-[4/3] sm:aspect-video');
               }
             }
@@ -178,9 +177,9 @@ const CameraFeed = React.memo(function CameraFeed({
       const keypoints = hand.keypoints;
       if (!keypoints || keypoints.length === 0) return;
 
-      // Draw skeleton lines
+      // Draw skeleton lines using active theme color
       ctx.lineWidth = 2.5;
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)'; // Glowing Sky Blue
+      ctx.strokeStyle = themeConfig.skeletonLine || 'rgba(99, 102, 241, 0.7)';
 
       HAND_CONNECTIONS.forEach(([startIdx, endIdx]) => {
         const p1 = keypoints[startIdx];
@@ -193,29 +192,39 @@ const CameraFeed = React.memo(function CameraFeed({
         }
       });
 
-      // Draw keypoint nodes
+      // Draw keypoint nodes using vibrant multi-color finger mapping
       keypoints.forEach((kp, idx) => {
         ctx.beginPath();
-        const radius = idx % 4 === 0 ? 4 : 2.5;
+        const isTip = idx === 4 || idx === 8 || idx === 12 || idx === 16 || idx === 20;
+        const radius = isTip ? 5 : idx % 4 === 0 ? 4 : 2.5;
         ctx.arc(kp.x, kp.y, radius, 0, 2 * Math.PI);
-        ctx.fillStyle = idx % 4 === 0 ? '#38bdf8' : '#818cf8'; // Sky fingertips, indigo joints
+
+        let color = '#ffffff';
+        if (idx === 4) color = '#10b981'; // Thumb: Emerald
+        else if (idx === 8) color = '#f59e0b'; // Index: Amber
+        else if (idx === 12) color = '#06b6d4'; // Middle: Cyan
+        else if (idx === 16) color = '#8b5cf6'; // Ring: Violet
+        else if (idx === 20) color = '#f43f5e'; // Pinky: Rose
+        else if (idx === 0) color = '#6366f1'; // Wrist: Indigo
+
+        ctx.fillStyle = color;
         ctx.fill();
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(0,0,0,0.85)';
+        ctx.lineWidth = 1.2;
         ctx.stroke();
       });
     });
-  }, [handsData, showLandmarks]);
+  }, [handsData, showLandmarks, themeConfig]);
 
   return (
-    <div className={`relative w-full ${aspectRatioClass} bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 flex items-center justify-center group transition-all duration-300`}>
+    <div className={`relative w-full ${aspectRatioClass} bg-black rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center group transition-all duration-300`}>
       {!isCameraActive ? (
         <div className="flex flex-col items-center justify-center text-center p-4 space-y-2">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
-            <CameraOff className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
+            <CameraOff className="w-5 h-5 sm:w-6 sm:h-6 opacity-70" />
           </div>
-          <p className="text-slate-200 font-semibold text-xs">Camera Feed Off</p>
-          <p className="text-slate-400 text-[11px] max-w-[200px]">Click "Enable Camera" above to activate gesture control.</p>
+          <p className="font-semibold text-xs">Camera Feed Off</p>
+          <p className="opacity-70 text-[11px] max-w-[200px]">Click "Enable Camera" above to activate gesture control.</p>
         </div>
       ) : error ? (
         <div className="text-center p-4 sm:p-6 space-y-3 max-w-md">
@@ -224,14 +233,14 @@ const CameraFeed = React.memo(function CameraFeed({
           <div className="flex items-center justify-center space-x-2 pt-2">
             <button
               onClick={() => setRetryCount((prev) => prev + 1)}
-              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-xs rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-sky-500/20"
+              className={`px-3.5 py-2 font-semibold text-xs rounded-lg transition flex items-center space-x-1.5 shadow-sm ${themeConfig.primaryBtn}`}
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Retry Camera</span>
             </button>
             <button
               onClick={() => window.location.reload()}
-              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-lg transition"
+              className={`px-3.5 py-2 border font-medium text-xs rounded-lg transition ${themeConfig.secondaryBtn}`}
             >
               Reload Page
             </button>
@@ -239,8 +248,8 @@ const CameraFeed = React.memo(function CameraFeed({
         </div>
       ) : isInitializing ? (
         <div className="flex flex-col items-center space-y-3">
-          <RefreshCw className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400 animate-spin" />
-          <p className="text-slate-400 text-xs font-medium tracking-wide">Initializing Camera Feed...</p>
+          <RefreshCw className={`w-7 h-7 sm:w-8 sm:h-8 animate-spin ${themeConfig.accentText}`} />
+          <p className="opacity-70 text-xs font-medium tracking-wide">Initializing Camera Feed...</p>
         </div>
       ) : null}
 
@@ -262,9 +271,9 @@ const CameraFeed = React.memo(function CameraFeed({
 
       {/* Live Badge Overlay */}
       {isCameraActive && !isInitializing && !error && (
-        <div className="absolute top-3 left-3 flex items-center space-x-2 px-2.5 py-1 rounded-md bg-slate-950/80 border border-slate-800 text-xs font-medium">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-          <span className="text-emerald-400 tracking-wider uppercase text-[10px] font-mono">LIVE FEED</span>
+        <div className="absolute top-3 left-3 flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-black/80 border border-emerald-500/30 text-xs font-medium backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <span className="text-emerald-400 tracking-wider uppercase text-[10px] font-mono font-bold">LIVE FEED</span>
         </div>
       )}
     </div>

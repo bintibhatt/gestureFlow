@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import './globals.css';
+import { ThemeProvider } from '../lib/theme/ThemeContext';
 
 export const metadata = {
   title: 'GestureFlow | Gesture-Controlled Photo Workspace',
@@ -12,9 +13,10 @@ export default function RootLayout({ children }) {
       <head>
         <Script src="/mediapipe/hands/hands.js" strategy="beforeInteractive" />
       </head>
-      <body className="min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950">
-        {children}
+      <body className="min-h-screen bg-black text-slate-100 antialiased selection:bg-indigo-600 selection:text-white">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
 }
+

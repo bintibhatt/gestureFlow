@@ -20,17 +20,17 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl shadow-xl max-w-2xl w-full flex flex-col space-y-4 sm:space-y-5 transform animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto custom-scrollbar"
+        className="bg-zinc-950 border border-zinc-800 p-5 sm:p-6 rounded-2xl shadow-2xl max-w-2xl w-full flex flex-col space-y-4 sm:space-y-5 transform animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto custom-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3.5">
           <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
               <BookOpen className="w-4 h-4" />
             </div>
             <div>
@@ -43,24 +43,24 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition"
+            className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition border border-zinc-800"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Context Mode Filter Tabs */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-0.5">
+        <div className="flex items-center space-x-2 overflow-x-auto pb-0.5 custom-scrollbar">
           {Object.keys(CONTEXT_NAMES).map((ctxKey) => {
             const isActive = selectedContext === ctxKey;
             return (
               <button
                 key={ctxKey}
                 onClick={() => setSelectedContext(ctxKey)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
                   isActive
                     ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-sm'
-                    : 'bg-zinc-950 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200'
+                    : 'bg-black text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200'
                 }`}
               >
                 {CONTEXT_NAMES[ctxKey]}
@@ -84,7 +84,7 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
               return (
                 <div
                   key={gestureName}
-                  className="flex items-center justify-between p-3 rounded-lg bg-zinc-950 border border-zinc-800/80 hover:border-zinc-700 transition"
+                  className="flex items-center justify-between p-3 rounded-xl bg-black border border-zinc-800 hover:border-zinc-700 transition"
                 >
                   <div className="flex items-center space-x-2.5">
                     <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-xl shrink-0">
@@ -118,7 +118,7 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
           </span>
           <button
             onClick={onClose}
-            className="px-3.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium text-xs transition"
+            className="px-4 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold text-xs transition border border-zinc-800"
           >
             Got It
           </button>
@@ -127,3 +127,5 @@ export default function GestureGuideModal({ isOpen, onClose, currentState = 'HOM
     </div>
   );
 }
+
+
